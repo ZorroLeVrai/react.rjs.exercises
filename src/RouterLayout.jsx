@@ -7,7 +7,8 @@ const RouterLayout = () => {
     <>
       <div>
         <LinkElement to="/" text="Maison" />
-        <LinkElement to="/etape0" text="etape0" />
+        <LinkElement to="/etape0" text="etape 0" />
+        <LinkElement to="/etape1" text="etape 1" />
       </div>
       <div>
         <Outlet />
