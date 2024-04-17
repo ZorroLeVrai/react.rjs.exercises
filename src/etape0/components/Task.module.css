@@ -1,0 +1,33 @@
+.lightBorder {
+  border: 1px solid black;
+}
+
+.marginVertical {
+  padding: 0.5rem 0.2rem 0;
+}
+
+.task {
+  composes: lightBorder marginVertical;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  /* Aligns items with space between them */
+  align-items: center;
+  /* Centers items vertically */
+}
+
+.text {
+  margin-right: auto;
+  /* Pushes the text to the left */
+}
+
+.icon {
+  margin-left: auto;
+  /* Pushes the icon to the right */
+}
+
+.icon:hover {
+  cursor: pointer;
+}
