@@ -2,6 +2,7 @@ import React from 'react';
 import { getStatusName } from '../tools';
 import { TaskStatus } from '../../taskStatus';
 import styles from "./ProgressStatus.module.css";
+import PropTypes from 'prop-types';
 
 const ProgressStatus = ({progressValue, progressMax, status, taskName}) => {
   const factor = 100 / progressMax;
@@ -14,6 +15,13 @@ const ProgressStatus = ({progressValue, progressMax, status, taskName}) => {
     <progress className={className} value={progress} max={100} status={statusName}>{taskName}</progress>
   )
 }
+
+ProgressStatus.ProgressStatus = {
+  progressValue: PropTypes.number.isRequired,
+  progressMax: PropTypes.number.isRequired,
+  status: PropTypes.symbol.isRequired,
+  taskName: PropTypes.string.isRequired
+};
 
 export function getStatusStyle(statusSymbol) {
   switch (statusSymbol) {
