@@ -29,11 +29,6 @@
   /* Pushes the text to the left */
 }
 
-.icon {
-  margin-left: auto;
-  /* Pushes the icon to the right */
-}
-
 .icon:hover {
   cursor: pointer;
 }

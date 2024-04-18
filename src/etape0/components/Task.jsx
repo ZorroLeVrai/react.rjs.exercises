@@ -2,7 +2,6 @@ import React from 'react';
 import { ErrorBoundary } from "react-error-boundary";
 import styles from "./Task.module.css";
 import ProgressStatus from './ProgressStatus';
-import { FaEdit } from "react-icons/fa";
 import { getTimeValue } from '../../timeConverter';
 
 const Task = ({totalTime, timeToComplete, status, taskName}) => {
@@ -15,7 +14,6 @@ const Task = ({totalTime, timeToComplete, status, taskName}) => {
       <div className={styles.task}>
         <div className={styles.container}>
           <span className={styles.text}>{taskName}</span>
-          <span className={styles.icon}><FaEdit /></span>
         </div>
         <ProgressStatus
           progressValue={progressTimeInSeconds}

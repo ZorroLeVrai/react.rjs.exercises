@@ -37,3 +37,11 @@
 .icon:hover {
   cursor: pointer;
 }
+
+.task .icon {
+  visibility: hidden;
+}
+
+.task:hover .icon {
+  visibility: visible;
+}
