@@ -18,8 +18,8 @@ Chaque tâche possède les propriété suivantes
 
 ## Etape 2
 - Mettez en place les PropTypes et les DefaultTypes pour les composants.
-- Ajoutez des tests unitaires pour nos tâches.
-- Ajoutez un pop-up qui affiche des informations complémentaires pour la tâche. Lorsque la souris est positionnée au-dessus de la barre de progression.
+- Ajoutez un tooltip qui affiche des informations complémentaires pour la tâche. Lorsque la souris est positionnée au-dessus de la barre de progression.
+- Ajoutez des tests unitaires pour cette application.
 
 ## Etape 3
 - Mettez en place un formulaire pour pouvoir éditer les caractéristiques de chaque tâche.

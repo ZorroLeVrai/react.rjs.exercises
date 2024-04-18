@@ -1,11 +1,11 @@
 import React from 'react';
 import { ErrorBoundary } from "react-error-boundary";
-import styles from "./Task.module.css";
-import ProgressStatus from './ProgressStatus';
+import ProgressStatusWithTooltip from './ProgressStatusWithTooltip';
 import { FaEdit } from "react-icons/fa";
 import { TiDelete } from "react-icons/ti";
 import { GoMoveToTop, GoMoveToBottom } from "react-icons/go";
 import { getTimeValue } from '../../timeConverter';
+import styles from "./Task.module.css";
 import PropTypes from 'prop-types';
 
 const Task = ({totalTime, timeToComplete, status, taskName, isFirst, isLast}) => {
@@ -25,11 +25,13 @@ const Task = ({totalTime, timeToComplete, status, taskName, isFirst, isLast}) =>
             <TiDelete/>
           </span>
         </div>
-        <ProgressStatus
+        <ProgressStatusWithTooltip
           progressValue={progressTimeInSeconds}
           progressMax={totalTimeInSeconds}
           status={status}
-          taskName={taskName}/>
+          taskName={taskName}
+          totalTime={totalTime}
+          timeToComplete={timeToComplete}/>
       </div>
     </ErrorBoundary>
   );
