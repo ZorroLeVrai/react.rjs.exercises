@@ -4,12 +4,36 @@ progress.task {
   border: 1px solid black;
 }
 
-progress.task::-webkit-progress-bar {
+progress.task.not_started::-webkit-progress-bar {
+  background-color: white;
+}
+
+progress.task.not_started::-webkit-progress-value {
+  background-color: black;
+}
+
+progress.task.in_progress::-webkit-progress-bar {
+  background-color: yellow;
+}
+
+progress.task.in_progress::-webkit-progress-value {
+  background-color: green;
+}
+
+progress.task.paused::-webkit-progress-bar {
   background-color: orange;
 }
 
-progress.task::-webkit-progress-value {
+progress.task.paused::-webkit-progress-value {
   background-color: red;
+}
+
+progress.task.completed::-webkit-progress-bar {
+  background-color: white;
+}
+
+progress.task.completed::-webkit-progress-value {
+  background-color: green;
 }
 
 progress.task::after {
