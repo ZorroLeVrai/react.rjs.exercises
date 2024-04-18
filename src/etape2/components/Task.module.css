@@ -1,0 +1,47 @@
+.lightBorder {
+  border: 2px solid white;
+  border-radius: 0.5rem;
+}
+
+.lightBorder:hover {
+  border: 2px solid black;
+  border-radius: 0.5rem;
+}
+
+.marginVertical {
+  padding: 0.5rem 0.5rem 0;
+}
+
+.task {
+  composes: lightBorder marginVertical;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  /* Aligns items with space between them */
+  align-items: center;
+  /* Centers items vertically */
+}
+
+.text {
+  margin-right: auto;
+  /* Pushes the text to the left */
+}
+
+.icon {
+  margin-left: auto;
+  /* Pushes the icon to the right */
+}
+
+.icon:hover {
+  cursor: pointer;
+}
+
+.task .icon {
+  visibility: hidden;
+}
+
+.task:hover .icon {
+  visibility: visible;
+}

@@ -5,6 +5,7 @@ import RouterLayout from './RouterLayout.jsx';
 import App from './App.jsx';
 import { Etape0 } from './etape0/App.jsx';
 import { Etape1 } from './etape1/App.jsx';
+import { Etape2 } from './etape2/App.jsx';
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -15,6 +16,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/" element={<App />} />
           <Route path="/etape0" element={<Etape0.App/>} />
           <Route path="/etape1" element={<Etape1.App/>} />
+          <Route path="/etape2" element={<Etape2.App/>} />
         </Route>
       </Routes>
     </BrowserRouter>

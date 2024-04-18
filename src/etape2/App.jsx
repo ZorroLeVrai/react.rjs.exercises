@@ -9,7 +9,7 @@ const tasks = [
 function App() {
   return (
     <>
-      <h1 className="center-text">Gestion des tâches  (étape 1)</h1>
+      <h1 className="center-text">Gestion des tâches  (étape 2)</h1>
       {tasks.map(taskToComponent)}
     </>
   )
@@ -31,4 +31,4 @@ function taskToComponent(task, index, taskArray) {
     isLast={isLast}/>
 }
 
-export const Etape1 = { App };
+export const Etape2 = { App };
