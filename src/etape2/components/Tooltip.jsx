@@ -5,7 +5,7 @@ const Tooltip = ({position, texts}) => {
   const {x, y} = position;
 
   return (
-    <div className={styles.tooltip} style={{top: y, left: x}}>
+    <div data-testid="progressbar_tooltip" className={styles.tooltip} style={{top: y, left: x}}>
       {texts.map((text, index) => <div key={index}>{text}</div>)}
     </div>
   )

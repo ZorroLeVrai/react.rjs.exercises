@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 /* renderTooltip uses a render prop to render its component */
 
 const withToolTip = (Component, renderTooltip) => {
-  const EnhanceComponent = (props) => {
+  const EnhancedComponent = (props) => {
     const [showTooltip, setShowTooltip] = useState(false);
     const [mousePosition, setMousePosition] = useState({x: 0, y: 0});
     const {totalTime, timeToComplete } = props;
@@ -16,7 +16,6 @@ const withToolTip = (Component, renderTooltip) => {
       if (!showTooltip)
         return;
       setMousePosition({x: e.clientX, y: e.clientY});
-      console.log({x: e.clientX, y: e.clientY});
     };
 
     return (
@@ -29,7 +28,7 @@ const withToolTip = (Component, renderTooltip) => {
     );    
   };
 
-  return EnhanceComponent;
+  return EnhancedComponent;
 }
 
 function generateTooltipText(totalTime, timeToComplete) {
