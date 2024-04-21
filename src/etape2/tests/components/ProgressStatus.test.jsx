@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import '@testing-library/jest-dom';
+import { describe, it, expect } from 'vitest';
 import { TaskStatus } from '../../../taskStatus';
 import ProgressStatus from "../../components/ProgressStatus";
 

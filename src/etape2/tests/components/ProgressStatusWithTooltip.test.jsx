@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import '@testing-library/jest-dom';
+import { describe, it, expect } from 'vitest';
 import userEvent from '@testing-library/user-event';
 import ProgressStatusWithTooltip from "../../components/ProgressStatusWithTooltip";
 import { TaskStatus } from "../../../taskStatus";
