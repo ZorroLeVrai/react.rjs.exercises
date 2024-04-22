@@ -19,8 +19,8 @@ const Task = ({totalTime, timeToComplete, status, taskName, isFirst, isLast}) =>
         <div className={styles.container}>
           <span className={styles.text}>{taskName}</span>
           <span className={styles.icon}>
-            {isFirst || <GoMoveToTop/>}
-            {isLast || <GoMoveToBottom />}
+            {isFirst || <GoMoveToTop data-testid="task_movetop"/>}
+            {isLast || <GoMoveToBottom data-testid="task_movebottom"/>}
             <FaEdit />
             <TiDelete/>
           </span>

@@ -18,10 +18,18 @@ Chaque tâche possède les propriété suivantes
 
 ## Etape 2
 - Mettez en place les PropTypes et les DefaultTypes pour les composants.
-- Ajoutez un tooltip qui affiche des informations complémentaires pour la tâche. Lorsque la souris est positionnée au-dessus de la barre de progression.
-- Ajoutez des tests unitaires pour cette application.
+- Ajoutez un tooltip qui affiche des informations complémentaires pour la tâche. Lorsque la souris est positionnée au-dessus de la barre de progression. Les informations à afficher sont le temps total et le temps restant.
+- Ajoutez des tests unitaires pour cette application.  
+Vous pouvez ajouter des tests pour les composants suivants
+  - **Progressbar**: vérifiez que la valeur est correctement affichée.
+  - **ToolTip**: vérifiez qu'un tooltip est affiché uniquement lorsque le curseur est sur la progressbar.
+  - **Tâche**: vérifiez que le composant gérant la tâche, affiche la bonne valeur de progression et les bonnes icônes.
 
 ## Etape 3
+- Ajoutez un composant qui affiche des informations sur toutes les tâches.  
+  - Nombre de tâches.
+  - Temps total pour toutes les tâches.
+  - Temps restant pour toutes les tâches.
 - Mettez en place un formulaire pour pouvoir éditer les caractéristiques de chaque tâche.
 - Gérez la suppression et le déplacement des tâches à l'aide des icônes.
 
