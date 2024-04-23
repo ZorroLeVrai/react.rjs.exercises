@@ -20,10 +20,10 @@ const withToolTip = (Component, renderTooltip) => {
 
     return (
       <>
-        <div onMouseEnter={mouseOver} onMouseLeave={mouseOut} onMouseMove={mouseMove}>
+        <span onMouseEnter={mouseOver} onMouseLeave={mouseOut} onMouseMove={mouseMove}>
           <Component {...props} />
           { showTooltip && renderTooltip(mousePosition, generatedTooltipText) }
-        </div>
+        </span>
       </>
     );    
   };

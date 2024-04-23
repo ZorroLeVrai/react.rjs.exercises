@@ -1,4 +1,3 @@
-import React from 'react';
 import { ErrorBoundary } from "react-error-boundary";
 import ProgressStatusWithTooltip from './ProgressStatusWithTooltip';
 import { FaEdit } from "react-icons/fa";
@@ -7,11 +6,13 @@ import { GoMoveToTop, GoMoveToBottom } from "react-icons/go";
 import { getTimeValue } from '../../timeConverter';
 import styles from "./Task.module.css";
 import PropTypes from 'prop-types';
+import { getStatusName } from "../tools";
 
 const Task = ({totalTime, timeToComplete, status, taskName, isFirst, isLast}) => {
   const totalTimeInSeconds = getTimeValue(totalTime);
   const timeToCompleteInSeconds = getTimeValue(timeToComplete);
   const progressTimeInSeconds = totalTimeInSeconds - timeToCompleteInSeconds;
+  const statusName = getStatusName(status);
 
   return (
     <ErrorBoundary fallback={<div>Erreur dans la tâche</div>} >
@@ -28,6 +29,7 @@ const Task = ({totalTime, timeToComplete, status, taskName, isFirst, isLast}) =>
         <ProgressStatusWithTooltip
           progressValue={progressTimeInSeconds}
           progressMax={totalTimeInSeconds}
+          title={statusName}
           status={status}
           taskName={taskName}
           totalTime={totalTime}

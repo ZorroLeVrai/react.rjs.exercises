@@ -1,5 +1,5 @@
-import Task from "./components/Task"
 import { TaskStatus } from "../taskStatus";
+import TaskGroup from "./components/TaskGroup";
 
 const tasks = [
   {id: 1, totalTime: "3d", timeToComplete: "1d", status: TaskStatus.IN_PROGRESS, name: "Première tâche"},
@@ -10,25 +10,11 @@ function App() {
   return (
     <>
       <h1 className="center-text">Gestion des tâches  (étape 3)</h1>
-      {tasks.map(taskToComponent)}
+      <TaskGroup groupName="Mon premier groupe" tasks={tasks}/>
     </>
   )
 }
 
-function taskToComponent(task, index, taskArray) {
-  const isFirst = (index === 0);
-  const isLast = (index === taskArray.length - 1);
-  const {id, totalTime, timeToComplete, status, name: taskName} = task;
 
-  return <Task 
-    key={id}
-    id={id}
-    totalTime={totalTime}
-    timeToComplete={timeToComplete}
-    status={status}
-    taskName={taskName}
-    isFirst={isFirst}
-    isLast={isLast}/>
-}
 
 export const Etape3 = { App };

@@ -37,7 +37,7 @@ progress.task.completed::-webkit-progress-value {
 }
 
 progress.task::after {
-  content: attr(status) ": " attr(value) "%";
+  content: attr(title) ": " attr(value) "%";
   position: absolute;
   width: 100%;
   text-align: center;

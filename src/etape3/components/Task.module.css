@@ -8,12 +8,16 @@
   border-radius: 0.5rem;
 }
 
-.marginVertical {
-  padding: 0.5rem 0.5rem 0;
+.taskPadding {
+  padding: 0.5rem 0 0 1rem;
+}
+
+.taskMargin {
+  margin: 0.2rem 0;
 }
 
 .task {
-  composes: lightBorder marginVertical;
+  composes: lightBorder taskPadding taskMargin;
 }
 
 .container {
