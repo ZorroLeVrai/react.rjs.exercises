@@ -31,7 +31,7 @@ const Task = ({totalTime, timeToComplete, status, taskName, isFirst, isLast}) =>
           progressMax={totalTimeInSeconds}
           title={statusName}
           status={status}
-          taskName={taskName}
+          name={taskName}
           totalTime={totalTime}
           timeToComplete={timeToComplete}/>
       </div>

@@ -9,7 +9,7 @@
 }
 
 .taskPadding {
-  padding: 0.5rem 0 0 1rem;
+  padding: 0.5rem 0.2rem 0 1rem;
 }
 
 .taskMargin {
@@ -29,13 +29,14 @@
 }
 
 .text {
-  margin-right: auto;
   /* Pushes the text to the left */
+  margin-right: auto;
+  margin: 0 0 0.1rem;
 }
 
 .icon {
-  margin-left: auto;
   /* Pushes the icon to the right */
+  margin-left: auto;
 }
 
 .icon:hover {

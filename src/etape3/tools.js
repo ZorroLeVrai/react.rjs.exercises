@@ -12,3 +12,7 @@ export function getStatusName(statusSymbol) {
       return "Complétée";
   }
 }
+
+export function composeStyles(...args) {
+  return args.join(" ");
+}

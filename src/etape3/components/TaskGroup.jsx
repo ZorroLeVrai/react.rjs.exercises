@@ -5,6 +5,8 @@ import { IoMdArrowDropright, IoMdArrowDropdown } from "react-icons/io";
 import ProgressStatusWithTooltip from './ProgressStatusWithTooltip';
 import { TaskStatus } from '../../taskStatus';
 import { useState } from 'react';
+import styles from "./TaskGroup.module.css";
+import { composeStyles } from '../tools';
 
 const TaskGroup = ({groupName, tasks}) => {
   const [showTasks, setShowTasks] = useState(true);
@@ -15,6 +17,7 @@ const TaskGroup = ({groupName, tasks}) => {
   const totalTime = getTimeInFormat(totalTimeInSeconds);
   const totalTimeToComplete = getTimeInFormat(remainingTimeInSeconds);
   const ArrowComponent = showTasks ? IoMdArrowDropdown : IoMdArrowDropright;
+  const iconStyles = tasks.length ? styles.groupTaskIcon : composeStyles(styles.groupTaskIcon, styles.hidden);
 
   const handleShowTasks = () => {
     setShowTasks(current => !current);
@@ -22,21 +25,29 @@ const TaskGroup = ({groupName, tasks}) => {
 
   return (
     <>
-      <div>{groupName}</div>
-      <ProgressStatusWithTooltip
-          progressValue={totalTimeInSeconds - remainingTimeInSeconds}
-          progressMax={totalTimeInSeconds}
-          title={groupName}
-          status={TaskStatus.COMPLETED}
-          taskName={groupName}
-          totalTime={totalTime}
-          timeToComplete={totalTimeToComplete}/>
-      <ArrowComponent onClick={handleShowTasks}/>
-      {
-        showTasks && <div>
-          {tasks.map(taskToComponent)}
+      <div className={styles.groupNameMargin}>{groupName}</div>
+      <div className={styles.groupTaskContainer}>
+        <div className={iconStyles}>
+          <ArrowComponent onClick={handleShowTasks}/>
         </div>
-      }
+        <div className={styles.groupTaskItemGrow}>
+          <ProgressStatusWithTooltip
+              progressValue={totalTimeInSeconds - remainingTimeInSeconds}
+              progressMax={totalTimeInSeconds}
+              title={groupName}
+              status={TaskStatus.COMPLETED}
+              name={groupName}
+              totalTime={totalTime}
+              timeToComplete={totalTimeToComplete}/>
+          {
+            showTasks && <div>
+              {tasks.map(taskToComponent)}
+            </div>
+          }
+        </div>
+      </div>
+      
+      
     </>
   )
 };
