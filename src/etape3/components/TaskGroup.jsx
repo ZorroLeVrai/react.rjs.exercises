@@ -1,15 +1,18 @@
 import { getTimeInFormat, getTimeInSeconds } from '../../timeConverter';
 import PropTypes from 'prop-types';
 import Task from './Task';
-import { IoMdArrowDropright, IoMdArrowDropdown, IoMdAddCircle } from "react-icons/io";
+import { IoMdArrowDropright, IoMdArrowDropdown, IoMdAddCircle, IoMdRemoveCircle } from "react-icons/io";
 import ProgressStatusWithTooltip from './ProgressStatusWithTooltip';
 import { TaskStatus } from '../../taskStatus';
 import { useState } from 'react';
 import styles from "./TaskGroup.module.css";
 import { composeStyles } from '../tools';
+import TaskForm from './TaskForm';
 
-const TaskGroup = ({groupName, tasks}) => {
+const TaskGroup = ({groupName, tasks, updateTasks}) => {
   const [showTasks, setShowTasks] = useState(true);
+  const [showForm, setShowForm] = useState(false);
+
   const { total: totalTimeInSeconds, remaining: remainingTimeInSeconds } = tasks
     .map(task => new TimeMetrics(getTimeInSeconds(task.totalTime), getTimeInSeconds(task.timeToComplete)))
     .reduce((accumulator, current) => accumulator.add(current), new TimeMetrics(0, 0));
@@ -17,6 +20,7 @@ const TaskGroup = ({groupName, tasks}) => {
   const totalTime = getTimeInFormat(totalTimeInSeconds);
   const totalTimeToComplete = getTimeInFormat(remainingTimeInSeconds);
   const ArrowComponent = showTasks ? IoMdArrowDropdown : IoMdArrowDropright;
+  const EditIcon = showForm ? IoMdRemoveCircle : IoMdAddCircle;
   const arrowGroupStyles = tasks.length ? styles.groupTaskIcon : composeStyles(styles.groupTaskIcon, styles.hidden);
   const groupNameStyles = composeStyles("flexSpaceBetween", styles.groupNameMargin);
 
@@ -24,12 +28,22 @@ const TaskGroup = ({groupName, tasks}) => {
     setShowTasks(current => !current);
   };
 
+  const handleShowForm = () => {
+    setShowForm(current => !current);
+  };
+
+  const handleCancelForm = () => setShowForm(false);
+
+  const handleSubmitForm = (newTask) => {
+    updateTasks([...tasks, newTask]);
+  }
+
   return (
     <>
       <div className={groupNameStyles}>
         <span>{groupName}</span>
         <span className={styles.icon}>
-          <IoMdAddCircle />
+          <EditIcon onClick={handleShowForm}/>
         </span>
       </div>
       <div className={styles.groupTaskContainer}>
@@ -45,6 +59,7 @@ const TaskGroup = ({groupName, tasks}) => {
               name={groupName}
               totalTime={totalTime}
               timeToComplete={totalTimeToComplete}/>
+          {showForm && <TaskForm handleCancel={handleCancelForm} handleFormSubmit={handleSubmitForm}/>}
           {
             showTasks && <div>
               {tasks.map(taskToComponent)}
@@ -66,7 +81,8 @@ TaskGroup.propTypes = {
     timeToComplete: PropTypes.string.isRequired,
     status: PropTypes.symbol.isRequired,
     name: PropTypes.string.isRequired
-  })).isRequired
+  })).isRequired,
+  updateTasks: PropTypes.func.isRequired
 }
 
 class TimeMetrics {

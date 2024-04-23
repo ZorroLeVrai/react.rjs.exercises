@@ -10,7 +10,12 @@ const ProgressStatus = ({progressValue, progressMax, title, status, name}) => {
   const className = composeStyles(styles.task, statusStyle);
 
   return (
-    <progress className={className} value={progress} max={100} title={title}>{name}</progress>
+    <div className={styles.taskBox}>
+      <progress className={className} value={progress} max={100}>
+        {name}
+      </progress>
+      <div className={styles.progressText}>{title}: {progress} %</div>
+    </div>
   )
 }
 

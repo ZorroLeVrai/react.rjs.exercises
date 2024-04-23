@@ -1,6 +1,6 @@
 export const TaskStatus = Object.freeze({
-  NOT_STARTED: Symbol("not_started"),
-  IN_PROGRESS: Symbol("in_progress"),
-  PAUSED: Symbol("paused"),
-  COMPLETED: Symbol("completed")
+  NOT_STARTED: Symbol("NOT_STARTED"),
+  IN_PROGRESS: Symbol("IN_PROGRESS"),
+  PAUSED: Symbol("PAUSED"),
+  COMPLETED: Symbol("COMPLETED")
 });

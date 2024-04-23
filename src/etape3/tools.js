@@ -1,16 +1,17 @@
 import { TaskStatus } from "../taskStatus";
 
+export const statusMap = new Map();
+statusMap.set(TaskStatus.NOT_STARTED, "Non débutée");
+statusMap.set(TaskStatus.IN_PROGRESS, "En cours");
+statusMap.set(TaskStatus.PAUSED, "En pause");
+statusMap.set(TaskStatus.COMPLETED, "Complétée");
+
 export function getStatusName(statusSymbol) {
-  switch (statusSymbol) {
-    case TaskStatus.NOT_STARTED:
-      return "Non débutée";
-    case TaskStatus.IN_PROGRESS:
-      return "En cours";
-    case TaskStatus.PAUSED:
-      return "En pause";
-    case TaskStatus.COMPLETED:
-      return "Complétée";
-  }
+  return statusMap.get(statusSymbol);
+}
+
+export function getStatusFromName(statusName) {
+  
 }
 
 export function composeStyles(...args) {

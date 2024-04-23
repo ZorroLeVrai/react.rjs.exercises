@@ -1,3 +1,13 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
 .center-text {
   text-align: center;
 }
@@ -13,4 +23,12 @@
 .flexRightAlign {
   /* Pushes the icon to the right */
   margin-left: auto;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.form-margin {
+  margin: 0 0 1rem 0;
 }
