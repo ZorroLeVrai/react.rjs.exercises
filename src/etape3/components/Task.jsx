@@ -8,7 +8,7 @@ import styles from "./Task.module.css";
 import PropTypes from 'prop-types';
 import { getStatusName } from "../tools";
 
-const Task = ({totalTime, timeToComplete, status, taskName, isFirst, isLast}) => {
+const Task = ({id, totalTime, timeToComplete, status, taskName, isFirst, isLast, onDeleteTask}) => {
   const totalTimeInSeconds = getTimeValue(totalTime);
   const timeToCompleteInSeconds = getTimeValue(timeToComplete);
   const progressTimeInSeconds = totalTimeInSeconds - timeToCompleteInSeconds;
@@ -23,7 +23,7 @@ const Task = ({totalTime, timeToComplete, status, taskName, isFirst, isLast}) =>
             {isFirst || <GoMoveToTop data-testid="task_movetop"/>}
             {isLast || <GoMoveToBottom data-testid="task_movebottom"/>}
             <FaEdit />
-            <TiDelete/>
+            <TiDelete onClick={() => onDeleteTask(id)}/>
           </span>
         </div>
         <ProgressStatusWithTooltip
@@ -40,12 +40,14 @@ const Task = ({totalTime, timeToComplete, status, taskName, isFirst, isLast}) =>
 }
 
 Task.propTypes = {
+  id: PropTypes.number.isRequired,
   totalTime: PropTypes.string.isRequired,
   timeToComplete: PropTypes.string.isRequired,
   status: PropTypes.symbol.isRequired,
   taskName: PropTypes.string.isRequired,
+  onDeleteTask: PropTypes.func.isRequired,
   isFirst: PropTypes.bool,
-  isLast: PropTypes.bool
+  isLast: PropTypes.bool,
 };
 
 Task.defaultProp = {

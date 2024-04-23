@@ -1,12 +1,14 @@
 import { Form, Field } from 'react-final-form';
 import styles from "./TaskForm.module.css";
-import { statusMap } from '../tools';
+import { idGenerator, statusMap } from '../tools';
 import { TaskStatus } from '../../taskStatus';
+import PropTypes from 'prop-types';
 
 const TaskForm = ({handleCancel, handleFormSubmit}) => {
   const onSubmit = (e) => {
     const { taskName, totalTime, remainingTime, taskStatus } = e;
     const myTask = {
+      id: idGenerator.next().value,
       totalTime,
       timeToComplete: remainingTime,
       status: TaskStatus[taskStatus],
@@ -46,6 +48,11 @@ const TaskForm = ({handleCancel, handleFormSubmit}) => {
         </form>
       )}
     />);
-}
+};
+
+TaskForm.propTypes = {
+  handleCancel: PropTypes.func.isRequired,
+  handleFormSubmit: PropTypes.func.isRequired
+};
 
 export default TaskForm;

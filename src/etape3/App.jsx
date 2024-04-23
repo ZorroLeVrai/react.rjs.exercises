@@ -1,16 +1,15 @@
 import { useState } from "react";
 import { TaskStatus } from "../taskStatus";
 import TaskGroup from "./components/TaskGroup";
+import { idGenerator } from "./tools";
 
 const initialTasks = [
-  {id: 1, totalTime: "3d", timeToComplete: "1d", status: TaskStatus.IN_PROGRESS, name: "Première tâche"},
-  {id: 2, totalTime: "5d", timeToComplete: "4d", status: TaskStatus.PAUSED, name: "Seconde tâche"}
+  {id: idGenerator.next().value, totalTime: "3d", timeToComplete: "1d", status: TaskStatus.IN_PROGRESS, name: "Première tâche"},
+  {id: idGenerator.next().value, totalTime: "5d", timeToComplete: "4d", status: TaskStatus.PAUSED, name: "Seconde tâche"}
 ];
 
 function App() {
   const [tasks, setTasks] = useState(() => initialTasks);
-
-  console.log(tasks);
 
   return (
     <>
@@ -19,7 +18,5 @@ function App() {
     </>
   )
 }
-
-
 
 export const Etape3 = { App };

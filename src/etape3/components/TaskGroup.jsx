@@ -38,6 +38,10 @@ const TaskGroup = ({groupName, tasks, updateTasks}) => {
     updateTasks([...tasks, newTask]);
   }
 
+  const handleDeleteTask = (taskId) => {
+    updateTasks(tasks.filter(task => task.id !== taskId));
+  }
+
   return (
     <>
       <div className={groupNameStyles}>
@@ -67,10 +71,25 @@ const TaskGroup = ({groupName, tasks, updateTasks}) => {
           }
         </div>
       </div>
-      
-      
     </>
-  )
+  );
+
+  function taskToComponent(task, index, tasks) {
+    const isFirst = (index === 0);
+    const isLast = (index === tasks.length - 1);
+    const {id, totalTime, timeToComplete, status, name: taskName} = task;
+  
+    return <Task 
+      key={id}
+      id={id}
+      totalTime={totalTime}
+      timeToComplete={timeToComplete}
+      status={status}
+      taskName={taskName}
+      isFirst={isFirst}
+      isLast={isLast}
+      onDeleteTask={handleDeleteTask}/>
+  }
 };
 
 TaskGroup.propTypes = {
@@ -96,22 +115,6 @@ class TimeMetrics {
     this.remaining += otherTimeMetrics.remaining;
     return this;
   }
-}
-
-function taskToComponent(task, index, taskArray) {
-  const isFirst = (index === 0);
-  const isLast = (index === taskArray.length - 1);
-  const {id, totalTime, timeToComplete, status, name: taskName} = task;
-
-  return <Task 
-    key={id}
-    id={id}
-    totalTime={totalTime}
-    timeToComplete={timeToComplete}
-    status={status}
-    taskName={taskName}
-    isFirst={isFirst}
-    isLast={isLast}/>
 }
 
 export default TaskGroup;

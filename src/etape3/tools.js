@@ -10,10 +10,15 @@ export function getStatusName(statusSymbol) {
   return statusMap.get(statusSymbol);
 }
 
-export function getStatusFromName(statusName) {
-  
-}
-
 export function composeStyles(...args) {
   return args.join(" ");
 }
+
+function* createIdGenerator() {
+  let index = 0;
+  while (true) {
+    yield ++index;
+  }
+}
+
+export const idGenerator = createIdGenerator();
