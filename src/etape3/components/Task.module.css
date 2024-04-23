@@ -20,23 +20,8 @@
   composes: lightBorder taskPadding taskMargin;
 }
 
-.container {
-  display: flex;
-  justify-content: space-between;
-  /* Aligns items with space between them */
-  align-items: center;
-  /* Centers items vertically */
-}
-
-.text {
-  /* Pushes the text to the left */
-  margin-right: auto;
+.taskName {
   margin: 0 0 0.1rem;
-}
-
-.icon {
-  /* Pushes the icon to the right */
-  margin-left: auto;
 }
 
 .icon:hover {

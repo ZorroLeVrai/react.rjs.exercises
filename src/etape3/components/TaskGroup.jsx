@@ -1,7 +1,7 @@
 import { getTimeInFormat, getTimeInSeconds } from '../../timeConverter';
 import PropTypes from 'prop-types';
 import Task from './Task';
-import { IoMdArrowDropright, IoMdArrowDropdown } from "react-icons/io";
+import { IoMdArrowDropright, IoMdArrowDropdown, IoMdAddCircle } from "react-icons/io";
 import ProgressStatusWithTooltip from './ProgressStatusWithTooltip';
 import { TaskStatus } from '../../taskStatus';
 import { useState } from 'react';
@@ -17,7 +17,8 @@ const TaskGroup = ({groupName, tasks}) => {
   const totalTime = getTimeInFormat(totalTimeInSeconds);
   const totalTimeToComplete = getTimeInFormat(remainingTimeInSeconds);
   const ArrowComponent = showTasks ? IoMdArrowDropdown : IoMdArrowDropright;
-  const iconStyles = tasks.length ? styles.groupTaskIcon : composeStyles(styles.groupTaskIcon, styles.hidden);
+  const arrowGroupStyles = tasks.length ? styles.groupTaskIcon : composeStyles(styles.groupTaskIcon, styles.hidden);
+  const groupNameStyles = composeStyles("flexSpaceBetween", styles.groupNameMargin);
 
   const handleShowTasks = () => {
     setShowTasks(current => !current);
@@ -25,9 +26,14 @@ const TaskGroup = ({groupName, tasks}) => {
 
   return (
     <>
-      <div className={styles.groupNameMargin}>{groupName}</div>
+      <div className={groupNameStyles}>
+        <span>{groupName}</span>
+        <span className={styles.icon}>
+          <IoMdAddCircle />
+        </span>
+      </div>
       <div className={styles.groupTaskContainer}>
-        <div className={iconStyles}>
+        <div className={arrowGroupStyles}>
           <ArrowComponent onClick={handleShowTasks}/>
         </div>
         <div className={styles.groupTaskItemGrow}>

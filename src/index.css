@@ -1,3 +1,16 @@
 .center-text {
   text-align: center;
 }
+
+.flexSpaceBetween {
+  display: flex;
+  justify-content: space-between;
+  /* Aligns items with space between them */
+  align-items: center;
+  /* Centers items vertically */
+}
+
+.flexRightAlign {
+  /* Pushes the icon to the right */
+  margin-left: auto;
+}

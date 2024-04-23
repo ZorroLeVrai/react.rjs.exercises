@@ -17,8 +17,8 @@ const Task = ({totalTime, timeToComplete, status, taskName, isFirst, isLast}) =>
   return (
     <ErrorBoundary fallback={<div>Erreur dans la tâche</div>} >
       <div className={styles.task}>
-        <div className={styles.container}>
-          <span className={styles.text}>{taskName}</span>
+        <div className="flexSpaceBetween">
+          <span className={styles.taskName}>{taskName}</span>
           <span className={styles.icon}>
             {isFirst || <GoMoveToTop data-testid="task_movetop"/>}
             {isLast || <GoMoveToBottom data-testid="task_movebottom"/>}
