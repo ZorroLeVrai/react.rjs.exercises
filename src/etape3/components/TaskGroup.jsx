@@ -32,8 +32,6 @@ const TaskGroup = ({groupName, tasks, updateTasks}) => {
     setShowForm(current => !current);
   };
 
-  const handleCancelForm = () => setShowForm(false);
-
   const handleSubmitForm = (newTask) => {
     updateTasks([...tasks, newTask]);
   }
@@ -63,7 +61,7 @@ const TaskGroup = ({groupName, tasks, updateTasks}) => {
               name={groupName}
               totalTime={totalTime}
               timeToComplete={totalTimeToComplete}/>
-          {showForm && <TaskForm handleCancel={handleCancelForm} handleFormSubmit={handleSubmitForm}/>}
+          {showForm && <TaskForm handleFormSubmit={handleSubmitForm}/>}
           {
             showTasks && <div>
               {tasks.map(taskToComponent)}
