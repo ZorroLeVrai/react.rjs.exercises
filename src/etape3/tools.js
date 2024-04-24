@@ -10,7 +10,7 @@ export function getStatusName(statusSymbol) {
   return statusMap.get(statusSymbol);
 }
 
-export function composeStyles(...args) {
+export const composeStyles = (...args) => {
   return args.join(" ");
 }
 

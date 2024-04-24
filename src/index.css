@@ -12,6 +12,11 @@ html {
   text-align: center;
 }
 
+.warning-text {
+  font-weight: bold;
+  color: red;
+}
+
 .flexSpaceBetween {
   display: flex;
   justify-content: space-between;

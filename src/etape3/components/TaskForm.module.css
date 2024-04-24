@@ -5,6 +5,19 @@
   row-gap: 0.2rem;
 }
 
+.flexContainer {
+  display: flex;
+  margin: 0.2rem;
+}
+
+.flexItemFix {
+  flex: 0 0 10rem;
+}
+
+.flexItemGrow {
+  flex: 1 1 auto;
+}
+
 .buttonVerticalMargin button {
   margin: 0 0.1rem;
 }
