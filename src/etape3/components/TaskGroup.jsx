@@ -96,7 +96,7 @@ TaskGroup.propTypes = {
     id: PropTypes.number.isRequired,
     totalTime: PropTypes.string.isRequired,
     timeToComplete: PropTypes.string.isRequired,
-    status: PropTypes.symbol.isRequired,
+    status: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired
   })).isRequired,
   updateTasks: PropTypes.func.isRequired

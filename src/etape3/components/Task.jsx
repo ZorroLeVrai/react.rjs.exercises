@@ -43,7 +43,7 @@ Task.propTypes = {
   id: PropTypes.number.isRequired,
   totalTime: PropTypes.string.isRequired,
   timeToComplete: PropTypes.string.isRequired,
-  status: PropTypes.symbol.isRequired,
+  status: PropTypes.string.isRequired,
   taskName: PropTypes.string.isRequired,
   onDeleteTask: PropTypes.func.isRequired,
   isFirst: PropTypes.bool,

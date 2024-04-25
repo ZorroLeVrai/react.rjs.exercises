@@ -4,7 +4,7 @@ import styles from "./ProgressStatus.module.css";
 import PropTypes from 'prop-types';
 
 const ProgressStatus = ({progressValue, progressMax, title, status, name}) => {
-  const factor = 100 / progressMax;
+  const factor = progressMax ? 100 / progressMax : 0;
   const progress = Math.round(100 * factor * progressValue) / 100;
   const statusStyle = getStatusStyle(status);
   const className = composeStyles(styles.task, statusStyle);
@@ -23,7 +23,7 @@ ProgressStatus.propTypes = {
   progressValue: PropTypes.number.isRequired,
   progressMax: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
-  status: PropTypes.symbol.isRequired,
+  status: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired
 };
 

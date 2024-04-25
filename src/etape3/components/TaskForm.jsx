@@ -6,8 +6,11 @@ import PropTypes from 'prop-types';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useEffect } from "react";
+import { getTimeInSeconds } from "../../timeConverter";
 
 const datePattern = /^(\d+[dhms]\s*)+$/;
+
+const remainingTimeField = "remainingTime";
 
 const schema = z.object({
   taskName: z.string({required_error: "champ requis"})
@@ -20,7 +23,13 @@ const schema = z.object({
     .refine(value => datePattern.test(value ?? ""), "Le temps restant doit être au format '1d 2h 3m 4s'"),
   taskStatus: z.string({required_error: "champ requis"})
     .min(1, "Sélectionnez un status pour la tâche")
-});
+}).refine(schema => {
+  const { totalTime, remainingTime } = schema;
+  if (totalTime && remainingTime) {
+    return getTimeInSeconds(totalTime) >= getTimeInSeconds(remainingTime);
+  }
+  return true;
+}, {message: "Le reste à faire doit être inférieur au temps total de la tâche", path: ["remainingTime"]});
 
 const defaultFormValues = {
   taskName: "",
@@ -29,14 +38,15 @@ const defaultFormValues = {
   taskStatus: ""
 };
 
-const TaskForm = ({handleFormSubmit}) => {
-  const { register, handleSubmit, reset, formState } = useForm({resolver: zodResolver(schema), mode: "onChange", defaultValues: defaultFormValues});
+const TaskForm = ({handleFormSubmit}) => {  
+
+  const { register, formState, handleSubmit, reset, getValues, setValue } = useForm({resolver: zodResolver(schema), mode: "onChange", defaultValues: defaultFormValues});
   const {errors, isDirty, isValid, isSubmitSuccessful} = formState;
-  useEffect(() => {
-    if (isSubmitSuccessful) {
-      reset();
-    }
-  }, [formState, reset]);
+
+  const { gridFormContainer, gridDoubleItem } = styles;
+  const warningStyle = composeStyles("center-text", "warning-text", gridDoubleItem);
+
+  const timePlaceHolder = "1d 2h 3m 4s (Nombre de jours heures minutes années)";
 
   const submitHandler = formData => {
     const { taskName, totalTime, remainingTime, taskStatus } = formData;
@@ -51,34 +61,58 @@ const TaskForm = ({handleFormSubmit}) => {
     handleFormSubmit(myTask);
   };
 
-  const { gridFormContainer, gridDoubleItem } = styles;
-  const warningStyle = composeStyles("center-text", "warning-text", gridDoubleItem);
+  const handleStatusSelect = (event) => {
+    let newRemainingTime = null;
+    const taskStatusValue = event.target.value;
+    switch (taskStatusValue) {
+      case TaskStatus.NOT_STARTED: {
+          const totalTime = getValues("totalTime");
+          if (datePattern.test(totalTime ?? ""))
+            newRemainingTime = totalTime;
+        }
+        break;
+      case TaskStatus.COMPLETED:
+        newRemainingTime = "0d";
+        break;
+    }
 
+    if (newRemainingTime) {
+      setValue("taskStatus", taskStatusValue);
+      setValue("remainingTime", newRemainingTime, { shouldValidate: true });
+    }
+  }
+  
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+    }
+  }, [isSubmitSuccessful, reset]);
+  
   return (
     <form className="form-margin" onSubmit={handleSubmit(submitHandler)}>
       <h2 className="center-text">Ajout d'une nouvelle tâche</h2>
       <div className={gridFormContainer}>
         {errors.taskName && <div className={warningStyle}>{errors.taskName.message}</div>}
         <label htmlFor="task-name">Nom de la tâche</label>
-        <input {...register("taskName", {required: "Nom de la tâche est obligatoire"})} id="task-name" type="text"/>
+        <input {...register("taskName", {required: "Nom de la tâche est obligatoire"})} id="task-name" type="text" placeholder="Nom de la tâche"/>
         {errors.totalTime && <div className={warningStyle}>{errors.totalTime.message}</div>}
         <label htmlFor="task-total-time">Temps total estimé</label>
-        <input {...register("totalTime", {required: true, pattern: datePattern})} id="task-total-time" type="text"/>
-        {errors.remainingTime && <div className={warningStyle}>{errors.remainingTime.message}</div>}
-        <label htmlFor="task-remaining-time">Temps restant estimé</label>
-        <input {...register("remainingTime", {required: true, pattern: datePattern})} id="task-remaining-time" type="text" />
+        <input {...register("totalTime", {required: true, pattern: datePattern})} id="task-total-time" type="text" placeholder={timePlaceHolder}/>
         {errors.taskStatus && <div className={warningStyle}>{errors.taskStatus.message}</div>}
         <label htmlFor="task-status">Statut de la tâche</label>
-        <select {...register("taskStatus", {required: true, validate: value => value !== "None"})} id="task-status" >
+        <select {...register("taskStatus", {required: true, validate: value => value !== "None"})} onChange={handleStatusSelect} id="task-status" >
           <option value="">Sélectionnez un statut...</option>
-          {Array.from(statusMap).map((statusItem, index) => <option key={index} value={statusItem[0].description}>{statusItem[1]}</option>)}
+          {Array.from(statusMap).map((statusItem, index) => <option key={index} value={statusItem[0]}>{statusItem[1]}</option>)}
         </select>
+        {errors.remainingTime && <div className={warningStyle}>{errors.remainingTime.message}</div>}
+        <label htmlFor="task-remaining-time">Temps restant estimé</label>
+        <input {...register("remainingTime", {required: true, pattern: datePattern})} id="task-remaining-time" type="text" placeholder={timePlaceHolder}/>
       </div>
       
       {errors.totalTime && <p>{errors.totalTime.message}</p>}
       <div className="flexSpaceBetween">
         <div className={styles.buttonVerticalMargin}>
-          <input type="reset"/>
+          <input type="reset" onClick={() => reset() }/>
         </div>
         <div className="flexRightAlign">
           <input disabled={!isDirty || !isValid} type="submit" />
