@@ -45,6 +45,27 @@ const TaskGroup = ({groupName, tasks, updateTasks}) => {
     updateTasks([...tasks.filter(task => task.id !== editedTask.id), editedTask]);
   }
 
+  const handleSwapTasks = (firstId, secondId) => {
+    const tempTasks = [...tasks];
+    //exchange indexes
+    [tempTasks[firstId], tempTasks[secondId]] = [tempTasks[secondId], tempTasks[firstId]];
+    updateTasks(tempTasks);
+  }
+
+  const handleTaskUp = (taskId) => {
+    const taskIndex = tasks.findIndex(t => t.id === taskId);
+    if (taskIndex > 0) {
+      handleSwapTasks(taskIndex, taskIndex-1);
+    }
+  }
+
+  const handleTaskDown = (taskId) => {
+    const taskIndex = tasks.findIndex(t => t.id === taskId);
+    if (taskIndex + 1 < tasks.length) {
+      handleSwapTasks(taskIndex, taskIndex+1);
+    }
+  }
+
   return (
     <>
       <div className={groupNameStyles}>
@@ -92,7 +113,9 @@ const TaskGroup = ({groupName, tasks, updateTasks}) => {
       isFirst={isFirst}
       isLast={isLast}
       onEditTask={handleEditTask}
-      onDeleteTask={handleDeleteTask}/>
+      onDeleteTask={handleDeleteTask}
+      onTaskUp={handleTaskUp}
+      onTaskDown={handleTaskDown}/>
   }
 };
 

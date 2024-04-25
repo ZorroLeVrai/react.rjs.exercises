@@ -10,7 +10,7 @@ import { getStatusName } from "../tools";
 import TaskForm from "./TaskForm";
 import { useState } from "react";
 
-const Task = ({id, totalTime, timeToComplete, status, taskName, isFirst, isLast, onEditTask, onDeleteTask}) => {
+const Task = ({id, totalTime, timeToComplete, status, taskName, isFirst, isLast, onEditTask, onDeleteTask, onTaskUp, onTaskDown}) => {
   const totalTimeInSeconds = getTimeValue(totalTime);
   const timeToCompleteInSeconds = getTimeValue(timeToComplete);
   const progressTimeInSeconds = totalTimeInSeconds - timeToCompleteInSeconds;
@@ -33,8 +33,8 @@ const Task = ({id, totalTime, timeToComplete, status, taskName, isFirst, isLast,
         <div className="flexSpaceBetween">
           <span className={styles.taskName}>{taskName}</span>
           <span className={styles.icon}>
-            {isFirst || <GoMoveToTop data-testid="task_movetop"/>}
-            {isLast || <GoMoveToBottom data-testid="task_movebottom"/>}
+            {isFirst || <GoMoveToTop onClick={() => onTaskUp(id)} data-testid="task_movetop"/>}
+            {isLast || <GoMoveToBottom onClick={() => onTaskDown(id)} data-testid="task_movebottom"/>}
             <FaEdit onClick={handleEditTask}/>
             <TiDelete onClick={() => onDeleteTask(id)}/>
           </span>
@@ -61,6 +61,8 @@ Task.propTypes = {
   taskName: PropTypes.string.isRequired,
   onEditTask: PropTypes.func.isRequired,
   onDeleteTask: PropTypes.func.isRequired,
+  onTaskUp: PropTypes.func.isRequired,
+  onTaskDown: PropTypes.func.isRequired,
   isFirst: PropTypes.bool,
   isLast: PropTypes.bool,
 };
