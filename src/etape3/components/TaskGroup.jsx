@@ -42,7 +42,6 @@ const TaskGroup = ({groupName, tasks, updateTasks}) => {
   }
 
   const handleEditTask = (editedTask) => {
-    console.log(editedTask);
     updateTasks([...tasks.filter(task => task.id !== editedTask.id), editedTask]);
   }
 

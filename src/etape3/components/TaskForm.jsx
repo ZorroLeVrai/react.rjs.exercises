@@ -26,7 +26,6 @@ const schema = z.object({
     .min(1, "Sélectionnez un status pour la tâche")
 }).refine(schema => {
   const { totalTime, timeToComplete } = schema;
-  console.log({ totalTime, timeToComplete });
   if (totalTime && timeToComplete) {
     return getTimeValue(totalTime) >= getTimeValue(timeToComplete);
   }
@@ -46,14 +45,6 @@ const TaskForm = ({formTitle, taskData, handleFormSubmit}) => {
   const { register, formState, handleSubmit, reset, getValues, setValue }
     = useForm({resolver: zodResolver(schema), mode: "onChange", defaultValues: taskFormValue});
   const {errors, isDirty, isValid, isSubmitSuccessful} = formState;
-
-  //TODO: tests to remove
-  const {totalTime, timeToComplete} = getValues();
-  console.log("values", getValues());
-  console.log("totalTime", getTimeValue(totalTime));
-  console.log("timeToComplete", getTimeValue(timeToComplete));
-  console.log("errors", errors);
-  console.log({isDirty, isValid});
 
   const { gridFormContainer, gridDoubleItem } = styles;
   const warningStyle = composeStyles("center-text", "warning-text", gridDoubleItem);
@@ -79,8 +70,9 @@ const TaskForm = ({formTitle, taskData, handleFormSubmit}) => {
     switch (taskStatusValue) {
       case TaskStatus.NOT_STARTED: {
           const totalTime = getValues(totalTimeField);
-          if (datePattern.test(totalTime ?? ""))
-          newTimeToComplete = totalTime;
+          if (datePattern.test(totalTime ?? "")) {
+            newTimeToComplete = totalTime;
+          }
         }
         break;
       case TaskStatus.COMPLETED:
@@ -93,6 +85,11 @@ const TaskForm = ({formTitle, taskData, handleFormSubmit}) => {
       setValue(timeToCompleteField, newTimeToComplete, { shouldValidate: true });
     }
   }
+
+  const resetFormData = (event) => {
+    event.preventDefault();
+    reset();
+  };
   
   useEffect(() => {
     if (isSubmitSuccessful) {
@@ -106,25 +103,27 @@ const TaskForm = ({formTitle, taskData, handleFormSubmit}) => {
       <div className={gridFormContainer}>
         {errors.taskName && <div className={warningStyle}>{errors.taskName.message}</div>}
         <label htmlFor="task-name">Nom de la tâche</label>
-        <input {...register("taskName", {required: "Nom de la tâche est obligatoire"})} id="task-name" type="text" placeholder="Nom de la tâche"/>
+        <input {...register("taskName")} id="task-name" type="text" placeholder="Nom de la tâche"/>
         {errors.totalTime && <div className={warningStyle}>{errors.totalTime.message}</div>}
         <label htmlFor="task-total-time">Temps total estimé</label>
-        <input {...register(totalTimeField, {required: true, pattern: datePattern})} id="task-total-time" type="text" placeholder={timePlaceHolder}/>
+        <input {...register(totalTimeField)} id="task-total-time" type="text" placeholder={timePlaceHolder}/>
         {errors.taskStatus && <div className={warningStyle}>{errors.taskStatus.message}</div>}
         <label htmlFor="task-status">Statut de la tâche</label>
-        <select {...register("taskStatus", {required: true, validate: value => value !== "None"})} onChange={handleStatusSelect} id="task-status">
+        <select {...register("taskStatus", {onChange: handleStatusSelect})} id="task-status">
           <option value="">Sélectionnez un statut...</option>
           {Array.from(statusMap).map((statusItem, index) => <option key={index} value={statusItem[0]}>{statusItem[1]}</option>)}
         </select>
         {errors.timeToComplete && <div className={warningStyle}>{errors.timeToComplete.message}</div>}
         <label htmlFor="task-remaining-time">Temps restant estimé</label>
-        <input {...register(timeToCompleteField, {required: true, pattern: datePattern})} id="task-remaining-time" type="text" placeholder={timePlaceHolder}/>
+        <input {...register(timeToCompleteField)} id="task-remaining-time" type="text" placeholder={timePlaceHolder}/>
       </div>
       
       {errors.totalTime && <p>{errors.totalTime.message}</p>}
       <div className="flexSpaceBetween">
         <div className={styles.buttonVerticalMargin}>
-          <input type="reset" onClick={() => reset() }/>
+          <button onClick={resetFormData}>
+            Initialiser
+          </button>
         </div>
         <div className="flexRightAlign">
           <input disabled={!isValid} type="submit" />

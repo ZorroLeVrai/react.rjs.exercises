@@ -5,7 +5,7 @@ const NB_SECONDS_PER_MINUTE = 60;
 
 export function getTimeValue(timeInStr) {
   let timeInSeconds = 0;
-  const timeArr = timeInStr.split(" ");
+  const timeArr = timeInStr.trim().split(" ");
   for (let timeItem of timeArr) {
     timeInSeconds += getTimeInSeconds(timeItem);
   }
