@@ -7,12 +7,25 @@ import { getTimeValue } from '../../timeConverter';
 import styles from "./Task.module.css";
 import PropTypes from 'prop-types';
 import { getStatusName } from "../tools";
+import TaskForm from "./TaskForm";
+import { useState } from "react";
 
-const Task = ({id, totalTime, timeToComplete, status, taskName, isFirst, isLast, onDeleteTask}) => {
+const Task = ({id, totalTime, timeToComplete, status, taskName, isFirst, isLast, onEditTask, onDeleteTask}) => {
   const totalTimeInSeconds = getTimeValue(totalTime);
   const timeToCompleteInSeconds = getTimeValue(timeToComplete);
   const progressTimeInSeconds = totalTimeInSeconds - timeToCompleteInSeconds;
   const statusName = getStatusName(status);
+
+  const [isEditMode, setIsEditMode] = useState(false);
+
+  const handleEditTask = () => {
+    setIsEditMode(current => !current);
+  };
+
+  const handleFormEdit = (currentTask) => {
+    setIsEditMode(false);
+    onEditTask(currentTask);
+  };
 
   return (
     <ErrorBoundary fallback={<div>Erreur dans la tâche</div>} >
@@ -22,7 +35,7 @@ const Task = ({id, totalTime, timeToComplete, status, taskName, isFirst, isLast,
           <span className={styles.icon}>
             {isFirst || <GoMoveToTop data-testid="task_movetop"/>}
             {isLast || <GoMoveToBottom data-testid="task_movebottom"/>}
-            <FaEdit />
+            <FaEdit onClick={handleEditTask}/>
             <TiDelete onClick={() => onDeleteTask(id)}/>
           </span>
         </div>
@@ -34,6 +47,7 @@ const Task = ({id, totalTime, timeToComplete, status, taskName, isFirst, isLast,
           name={taskName}
           totalTime={totalTime}
           timeToComplete={timeToComplete}/>
+        {isEditMode && <TaskForm formTitle={`Modifiez la tâche ${taskName}`} taskData={{id, totalTime, timeToComplete, status, taskName}} handleFormSubmit={handleFormEdit}/>}
       </div>
     </ErrorBoundary>
   );
@@ -45,6 +59,7 @@ Task.propTypes = {
   timeToComplete: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
   taskName: PropTypes.string.isRequired,
+  onEditTask: PropTypes.func.isRequired,
   onDeleteTask: PropTypes.func.isRequired,
   isFirst: PropTypes.bool,
   isLast: PropTypes.bool,

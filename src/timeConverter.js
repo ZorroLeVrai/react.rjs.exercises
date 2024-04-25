@@ -1,4 +1,4 @@
-const NB_HOURS_PER_DAY = 8;
+
 const NB_SECONDS_PER_DAY = 8 * 3600;
 const NB_SECONDS_PER_HOUR = 3600;
 const NB_SECONDS_PER_MINUTE = 60;
@@ -13,7 +13,7 @@ export function getTimeValue(timeInStr) {
   return timeInSeconds;
 }
 
-export function getTimeInSeconds(timeNotation) {
+function getTimeInSeconds(timeNotation) {
   const timeUnit = timeNotation.at(-1);
   if ("dhms".includes(timeUnit)) {
     const timeFactor = getTimeFactor(timeUnit);

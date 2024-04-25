@@ -1,4 +1,4 @@
-import { getTimeInFormat, getTimeInSeconds } from '../../timeConverter';
+import { getTimeInFormat, getTimeValue } from '../../timeConverter';
 import PropTypes from 'prop-types';
 import Task from './Task';
 import { IoMdArrowDropright, IoMdArrowDropdown, IoMdAddCircle, IoMdRemoveCircle } from "react-icons/io";
@@ -14,7 +14,7 @@ const TaskGroup = ({groupName, tasks, updateTasks}) => {
   const [showForm, setShowForm] = useState(false);
 
   const { total: totalTimeInSeconds, remaining: remainingTimeInSeconds } = tasks
-    .map(task => new TimeMetrics(getTimeInSeconds(task.totalTime), getTimeInSeconds(task.timeToComplete)))
+    .map(task => new TimeMetrics(getTimeValue(task.totalTime), getTimeValue(task.timeToComplete)))
     .reduce((accumulator, current) => accumulator.add(current), new TimeMetrics(0, 0));
 
   const totalTime = getTimeInFormat(totalTimeInSeconds);
@@ -32,12 +32,18 @@ const TaskGroup = ({groupName, tasks, updateTasks}) => {
     setShowForm(current => !current);
   };
 
+  //TODO: use a reducer???
   const handleSubmitForm = (newTask) => {
     updateTasks([...tasks, newTask]);
   }
 
   const handleDeleteTask = (taskId) => {
     updateTasks(tasks.filter(task => task.id !== taskId));
+  }
+
+  const handleEditTask = (editedTask) => {
+    console.log(editedTask);
+    updateTasks([...tasks.filter(task => task.id !== editedTask.id), editedTask]);
   }
 
   return (
@@ -61,7 +67,7 @@ const TaskGroup = ({groupName, tasks, updateTasks}) => {
               name={groupName}
               totalTime={totalTime}
               timeToComplete={totalTimeToComplete}/>
-          {showForm && <TaskForm handleFormSubmit={handleSubmitForm}/>}
+          {showForm && <TaskForm formTitle="Ajoutez une tâche" handleFormSubmit={handleSubmitForm}/>}
           {
             showTasks && <div>
               {tasks.map(taskToComponent)}
@@ -86,6 +92,7 @@ const TaskGroup = ({groupName, tasks, updateTasks}) => {
       taskName={taskName}
       isFirst={isFirst}
       isLast={isLast}
+      onEditTask={handleEditTask}
       onDeleteTask={handleDeleteTask}/>
   }
 };
