@@ -9,8 +9,11 @@ import PropTypes from 'prop-types';
 import { getStatusName } from "../tools";
 import TaskForm from "./TaskForm";
 import { useState } from "react";
+import { TaskGroupAction } from "../App";
 
-const Task = ({id, totalTime, timeToComplete, status, taskName, isFirst, isLast, onEditTask, onDeleteTask, onTaskUp, onTaskDown}) => {
+const Task = ({taskData, isFirst, isLast, tasksDispatcher}) => {
+  const { id, totalTime, timeToComplete, status, name: taskName } = taskData;
+
   const totalTimeInSeconds = getTimeValue(totalTime);
   const timeToCompleteInSeconds = getTimeValue(timeToComplete);
   const progressTimeInSeconds = totalTimeInSeconds - timeToCompleteInSeconds;
@@ -24,8 +27,20 @@ const Task = ({id, totalTime, timeToComplete, status, taskName, isFirst, isLast,
 
   const handleFormEdit = (currentTask) => {
     setIsEditMode(false);
-    onEditTask(currentTask);
+    tasksDispatcher({type: TaskGroupAction.EDIT_TASK, payload: currentTask});
   };
+
+  const handleTaskDelete = () => {
+    tasksDispatcher({type: TaskGroupAction.DELETE_TASK, payload: taskData});
+  }
+
+  const handleTaskMoveUp = () => {
+    tasksDispatcher({type: TaskGroupAction.MOVE_UP_TASK, payload: taskData});
+  }
+
+  const handleTaskMoveDown = () => {
+    tasksDispatcher({type: TaskGroupAction.MOVE_DOWN_TASK, payload: taskData});
+  }
 
   return (
     <ErrorBoundary fallback={<div>Erreur dans la tâche</div>} >
@@ -33,10 +48,10 @@ const Task = ({id, totalTime, timeToComplete, status, taskName, isFirst, isLast,
         <div className="flexSpaceBetween">
           <span className={styles.taskName}>{taskName}</span>
           <span className={styles.icon}>
-            {isFirst || <GoMoveToTop onClick={() => onTaskUp(id)} data-testid="task_movetop"/>}
-            {isLast || <GoMoveToBottom onClick={() => onTaskDown(id)} data-testid="task_movebottom"/>}
+            {isFirst || <GoMoveToTop onClick={handleTaskMoveUp} data-testid="task_movetop"/>}
+            {isLast || <GoMoveToBottom onClick={handleTaskMoveDown} data-testid="task_movebottom"/>}
             <FaEdit onClick={handleEditTask}/>
-            <TiDelete onClick={() => onDeleteTask(id)}/>
+            <TiDelete onClick={handleTaskDelete}/>
           </span>
         </div>
         <ProgressStatusWithTooltip
@@ -54,15 +69,14 @@ const Task = ({id, totalTime, timeToComplete, status, taskName, isFirst, isLast,
 }
 
 Task.propTypes = {
-  id: PropTypes.number.isRequired,
-  totalTime: PropTypes.string.isRequired,
-  timeToComplete: PropTypes.string.isRequired,
-  status: PropTypes.string.isRequired,
-  taskName: PropTypes.string.isRequired,
-  onEditTask: PropTypes.func.isRequired,
-  onDeleteTask: PropTypes.func.isRequired,
-  onTaskUp: PropTypes.func.isRequired,
-  onTaskDown: PropTypes.func.isRequired,
+  taskData: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    totalTime: PropTypes.string.isRequired,
+    timeToComplete: PropTypes.string.isRequired,
+    status: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired
+  }),
+  tasksDispatcher: PropTypes.func.isRequired,
   isFirst: PropTypes.bool,
   isLast: PropTypes.bool,
 };

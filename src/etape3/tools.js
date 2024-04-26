@@ -23,6 +23,7 @@ export const composeStyles = (...args) => {
  * Generate id numbers
  * @generator
  * @yields {number}
+ * @returns {Generator<number>}
  */
 function* createIdGenerator() {
   let index = 0;
@@ -31,4 +32,7 @@ function* createIdGenerator() {
   }
 }
 
+/**
+ * @type {Generator<number>}
+ */
 export const idGenerator = createIdGenerator();

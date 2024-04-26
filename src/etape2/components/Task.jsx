@@ -40,7 +40,7 @@ const Task = ({totalTime, timeToComplete, status, taskName, isFirst, isLast}) =>
 Task.propTypes = {
   totalTime: PropTypes.string.isRequired,
   timeToComplete: PropTypes.string.isRequired,
-  status: PropTypes.symbol.isRequired,
+  status: PropTypes.string.isRequired,
   taskName: PropTypes.string.isRequired,
   isFirst: PropTypes.bool,
   isLast: PropTypes.bool

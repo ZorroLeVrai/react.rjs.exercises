@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import PropTypes from 'prop-types';
+import { useState } from 'react';
 
 /* Higher Order Component to add a tooltip to a React component*/
 /* renderTooltip uses a render prop to render its component */
@@ -26,6 +27,11 @@ const withToolTip = (Component, renderTooltip) => {
         </span>
       </>
     );    
+  };
+
+  EnhancedComponent.propTypes = {
+    totalTime: PropTypes.string.isRequired,
+    timeToComplete: PropTypes.string.isRequired,
   };
 
   return EnhancedComponent;

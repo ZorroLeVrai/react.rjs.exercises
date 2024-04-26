@@ -8,18 +8,9 @@ import { useState } from 'react';
 import styles from "./TaskGroup.module.css";
 import { composeStyles } from '../tools';
 import TaskForm from './TaskForm';
+import { TaskGroupAction } from '../App';
 
-/**
- * 
- * @param {string} state - Action state
- * @param {{type: string, payload: *}} action - the dispatched action
- * @returns {*} the computed state
- */
-function reducer(state, action) {
-  
-}
-
-const TaskGroup = ({groupName, tasks, updateTasks}) => {
+export const TaskGroup = ({groupName, tasks, tasksDispatcher}) => {
   const [showTasks, setShowTasks] = useState(true);
   const [showForm, setShowForm] = useState(false);
 
@@ -42,45 +33,8 @@ const TaskGroup = ({groupName, tasks, updateTasks}) => {
     setShowForm(current => !current);
   };
 
-  //TODO: use a reducer???
   const handleSubmitForm = (newTask) => {
-    updateTasks([...tasks, newTask]);
-  }
-
-  const handleDeleteTask = (taskId) => {
-    updateTasks(tasks.filter(task => task.id !== taskId));
-  }
-
-  const handleEditTask = (editedTask) => {
-    const taskIndex = tasks.findIndex(t => t.id === editedTask.id);
-    if (taskIndex < 0)
-      throw new Error("Task id was not found");
-
-    updateTasks([...tasks.slice(0, taskIndex), editedTask, ...tasks.slice(taskIndex+1)]);
-  }
-
-  const handleSwapTasks = (firstId, secondId) => {
-    const tempTasks = [...tasks];
-    //exchange indexes
-    [tempTasks[firstId], tempTasks[secondId]] = [tempTasks[secondId], tempTasks[firstId]];
-    updateTasks(tempTasks);
-  }
-
-  const handleTaskUp = (taskId) => {
-    const taskIndex = tasks.findIndex(t => t.id === taskId);
-    if (taskIndex > 0) {
-      handleSwapTasks(taskIndex, taskIndex-1);
-    }
-  }
-
-  const handleTaskDown = (taskId) => {
-    const taskIndex = tasks.findIndex(t => t.id === taskId);
-    if (taskIndex < 0)
-      throw new Error("Task id was not found");
-
-    if (taskIndex + 1 < tasks.length) {
-      handleSwapTasks(taskIndex, taskIndex+1);
-    }
+    tasksDispatcher({type: TaskGroupAction.ADD_TASK, payload: newTask});
   }
 
   return (
@@ -118,21 +72,13 @@ const TaskGroup = ({groupName, tasks, updateTasks}) => {
   function taskToComponent(task, index, tasks) {
     const isFirst = (index === 0);
     const isLast = (index === tasks.length - 1);
-    const {id, totalTime, timeToComplete, status, name: taskName} = task;
   
     return <Task 
-      key={id}
-      id={id}
-      totalTime={totalTime}
-      timeToComplete={timeToComplete}
-      status={status}
-      taskName={taskName}
+      key={task.id}
+      taskData={task}
       isFirst={isFirst}
       isLast={isLast}
-      onEditTask={handleEditTask}
-      onDeleteTask={handleDeleteTask}
-      onTaskUp={handleTaskUp}
-      onTaskDown={handleTaskDown}/>
+      tasksDispatcher={tasksDispatcher}/>
   }
 };
 
@@ -145,7 +91,7 @@ TaskGroup.propTypes = {
     status: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired
   })).isRequired,
-  updateTasks: PropTypes.func.isRequired
+  tasksDispatcher: PropTypes.func.isRequired
 }
 
 class TimeMetrics {
@@ -160,5 +106,3 @@ class TimeMetrics {
     return this;
   }
 }
-
-export default TaskGroup;

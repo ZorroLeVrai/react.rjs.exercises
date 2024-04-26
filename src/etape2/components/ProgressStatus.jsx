@@ -1,4 +1,3 @@
-import React from 'react';
 import { getStatusName } from '../tools';
 import { TaskStatus } from '../../taskStatus';
 import styles from "./ProgressStatus.module.css";
@@ -16,14 +15,14 @@ const ProgressStatus = ({progressValue, progressMax, status, taskName}) => {
   )
 }
 
-ProgressStatus.ProgressStatus = {
+ProgressStatus.propTypes = {
   progressValue: PropTypes.number.isRequired,
   progressMax: PropTypes.number.isRequired,
   status: PropTypes.symbol.isRequired,
   taskName: PropTypes.string.isRequired
 };
 
-export function getStatusStyle(statusSymbol) {
+function getStatusStyle(statusSymbol) {
   switch (statusSymbol) {
     case TaskStatus.NOT_STARTED:
       return styles.not_started;
