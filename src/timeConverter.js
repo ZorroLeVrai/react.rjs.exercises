@@ -3,6 +3,11 @@ const NB_SECONDS_PER_DAY = 8 * 3600;
 const NB_SECONDS_PER_HOUR = 3600;
 const NB_SECONDS_PER_MINUTE = 60;
 
+/**
+ * Transforms a time span from the "1d 2h 3m 4s" format to the number of seconds
+ * @param {string} timeInStr - time in a "1d 2h 3m 4s" format
+ * @returns {number} Time in seconds
+ */
 export function getTimeValue(timeInStr) {
   let timeInSeconds = 0;
   const timeArr = timeInStr.trim().split(" ");
@@ -24,21 +29,35 @@ function getTimeInSeconds(timeNotation) {
   return parseFloat(timeNotation);
 }
 
+/**
+ * @typedef {Object} TimeSecondUnitType
+ * @property {number} seconds
+ * @property {string} unit
+ */
+
+/**
+ * 
+ * @param {number} timeInSeconds - time span in seconds
+ * @returns {string} a string representing the timespan in a "1d 2h 3m 4s" format
+ */
 export function getTimeInFormat(timeInSeconds) {
+  /**
+   * @type {TimeSecondUnitType[]}
+   */
   const timeArr = [
-    [NB_SECONDS_PER_DAY, 'd'],
-    [NB_SECONDS_PER_HOUR, 'h'],
-    [NB_SECONDS_PER_MINUTE, 'm']
+    { seconds: NB_SECONDS_PER_DAY, unit: 'd' },
+    { seconds: NB_SECONDS_PER_HOUR, unit: 'h' },
+    { seconds: NB_SECONDS_PER_MINUTE, unit: 'm' }
   ];
 
   let timeNotation = "";
   let arrIndex = 0;
   while (timeInSeconds >= NB_SECONDS_PER_MINUTE) {
     const unitArr = timeArr[arrIndex];
-    if (timeInSeconds >= unitArr[0]) {
-      const nbUnits = Math.floor(timeInSeconds / unitArr[0]);
-      timeNotation += `${nbUnits}${unitArr[1]}`;
-      timeInSeconds -= nbUnits * unitArr[0];
+    if (timeInSeconds >= unitArr.seconds) {
+      const nbUnits = Math.floor(timeInSeconds / unitArr.seconds);
+      timeNotation += `${nbUnits}${unitArr.unit}`;
+      timeInSeconds -= nbUnits * unitArr.seconds;
     }
 
     ++arrIndex;

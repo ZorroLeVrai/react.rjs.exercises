@@ -118,7 +118,6 @@ const TaskForm = ({formTitle, taskData, handleFormSubmit}) => {
         <input {...register(timeToCompleteField)} id="task-remaining-time" type="text" placeholder={timePlaceHolder}/>
       </div>
       
-      {errors.totalTime && <p>{errors.totalTime.message}</p>}
       <div className="flexSpaceBetween">
         <div className={styles.buttonVerticalMargin}>
           <button onClick={resetFormData}>
