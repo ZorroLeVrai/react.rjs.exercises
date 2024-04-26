@@ -1,0 +1,27 @@
+.gridFormContainer {
+  display: grid;
+  grid-template-columns: 10rem auto;
+  margin: 0.2rem;
+  row-gap: 0.2rem;
+}
+
+.gridDoubleItem {
+  grid-column: span 2;
+}
+
+.flexContainer {
+  display: flex;
+  margin: 0.2rem;
+}
+
+.flexItemFix {
+  flex: 0 0 10rem;
+}
+
+.flexItemGrow {
+  flex: 1 1 auto;
+}
+
+.buttonVerticalMargin button {
+  margin: 0 0.1rem;
+}
