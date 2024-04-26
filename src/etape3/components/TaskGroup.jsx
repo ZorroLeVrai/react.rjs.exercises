@@ -8,7 +8,7 @@ import { useState } from 'react';
 import styles from "./TaskGroup.module.css";
 import { composeStyles } from '../tools';
 import TaskForm from './TaskForm';
-import { TaskGroupAction } from '../App';
+import { TaskGroupAction } from '../tasksReducer';
 
 export const TaskGroup = ({groupName, tasks, tasksDispatcher}) => {
   const [showTasks, setShowTasks] = useState(true);

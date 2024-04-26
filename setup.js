@@ -1,4 +1,5 @@
 import '@testing-library/jest-dom/vitest';
+import { vi } from 'vitest';
 // import ResizeObserver from 'resize-observer-polyfill';
 
 // //to fix error with ResizeObserver

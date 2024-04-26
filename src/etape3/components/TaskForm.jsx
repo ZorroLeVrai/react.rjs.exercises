@@ -44,7 +44,7 @@ const TaskForm = ({formTitle, taskData, handleFormSubmit}) => {
 
   const { register, formState, handleSubmit, reset, getValues, setValue }
     = useForm({resolver: zodResolver(schema), mode: "onChange", defaultValues: taskFormValue});
-  const {errors, isDirty, isValid, isSubmitSuccessful} = formState;
+  const {errors, isValid, isSubmitSuccessful} = formState;
 
   const { gridFormContainer, gridDoubleItem } = styles;
   const warningStyle = composeStyles("center-text", "warning-text", gridDoubleItem);

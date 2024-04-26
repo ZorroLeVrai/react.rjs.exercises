@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { getStatusName } from "../tools";
 import TaskForm from "./TaskForm";
 import { useState } from "react";
-import { TaskGroupAction } from "../App";
+import { TaskGroupAction } from "../tasksReducer";
 
 const Task = ({taskData, isFirst, isLast, tasksDispatcher}) => {
   const { id, totalTime, timeToComplete, status, name: taskName } = taskData;

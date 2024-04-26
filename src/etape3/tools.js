@@ -4,7 +4,7 @@ export const statusMap = new Map();
 statusMap.set(TaskStatus.NOT_STARTED, "Non débutée");
 statusMap.set(TaskStatus.IN_PROGRESS, "En cours");
 statusMap.set(TaskStatus.PAUSED, "En pause");
-statusMap.set(TaskStatus.COMPLETED, "Complétée");
+statusMap.set(TaskStatus.COMPLETED, "Terminée");
 
 /**
  * 
