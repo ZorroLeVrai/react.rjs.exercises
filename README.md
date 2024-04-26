@@ -26,7 +26,7 @@ Vous pouvez ajouter des tests pour les composants suivants
   - **Tâche**: vérifiez que le composant gérant la tâche, affiche la bonne valeur de progression et les bonnes icônes.
 
 ## Etape 3
-- Ajoutez un composant qui affiche des informations sur toutes les tâches.  
+- Ajoutez un composant groupe qui affiche des informations concernant les tâches du groupe.  
   - Nombre de tâches.
   - Temps total pour toutes les tâches.
   - Temps restant pour toutes les tâches.

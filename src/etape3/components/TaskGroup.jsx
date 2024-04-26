@@ -25,6 +25,8 @@ export const TaskGroup = ({groupName, tasks, tasksDispatcher}) => {
   const arrowGroupStyles = tasks.length ? styles.groupTaskIcon : composeStyles(styles.groupTaskIcon, styles.hidden);
   const groupNameStyles = composeStyles("flexSpaceBetween", styles.groupNameMargin);
 
+  const groupTitle = (tasks.length > 0) ? `${groupName} (${tasks.length})`:groupName;
+
   const handleShowTasks = () => {
     setShowTasks(current => !current);
   };
@@ -40,7 +42,7 @@ export const TaskGroup = ({groupName, tasks, tasksDispatcher}) => {
   return (
     <>
       <div className={groupNameStyles}>
-        <span>{groupName}</span>
+        <span>{groupTitle}</span>
         <span className={styles.icon}>
           <EditIcon onClick={handleShowForm}/>
         </span>
