@@ -9,6 +9,16 @@ import styles from "./TaskGroup.module.css";
 import { composeStyles } from '../tools';
 import TaskForm from './TaskForm';
 
+/**
+ * 
+ * @param {string} state - Action state
+ * @param {{type: string, payload: *}} action - the dispatched action
+ * @returns {*} the computed state
+ */
+function reducer(state, action) {
+  
+}
+
 const TaskGroup = ({groupName, tasks, updateTasks}) => {
   const [showTasks, setShowTasks] = useState(true);
   const [showForm, setShowForm] = useState(false);
@@ -42,7 +52,11 @@ const TaskGroup = ({groupName, tasks, updateTasks}) => {
   }
 
   const handleEditTask = (editedTask) => {
-    updateTasks([...tasks.filter(task => task.id !== editedTask.id), editedTask]);
+    const taskIndex = tasks.findIndex(t => t.id === editedTask.id);
+    if (taskIndex < 0)
+      throw new Error("Task id was not found");
+
+    updateTasks([...tasks.slice(0, taskIndex), editedTask, ...tasks.slice(taskIndex+1)]);
   }
 
   const handleSwapTasks = (firstId, secondId) => {
@@ -61,6 +75,9 @@ const TaskGroup = ({groupName, tasks, updateTasks}) => {
 
   const handleTaskDown = (taskId) => {
     const taskIndex = tasks.findIndex(t => t.id === taskId);
+    if (taskIndex < 0)
+      throw new Error("Task id was not found");
+
     if (taskIndex + 1 < tasks.length) {
       handleSwapTasks(taskIndex, taskIndex+1);
     }
