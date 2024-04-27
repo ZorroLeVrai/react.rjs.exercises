@@ -1,27 +1,32 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { idGenerator } from "../tools";
 import { TaskStatus } from "../../taskStatus";
 
-function handleSwapTasks(tasks, firstId, secondId) {
+/**
+ * 
+ * @param {TaskType[]} tasks - The array of tasks
+ * @param {number} firstIndex - First index to swap
+ * @param {number} secondIndex - Second index to swap
+ * @returns {TaskType[]} The array with the swap tasks
+ */
+function handleSwapTasks(tasks, firstIndex, secondIndex) {
   const tempTasks = [...tasks];
   //exchange indexes
-  [tempTasks[firstId], tempTasks[secondId]] = [tempTasks[secondId], tempTasks[firstId]];
+  [tempTasks[firstIndex], tempTasks[secondIndex]] = [tempTasks[secondIndex], tempTasks[firstIndex]];
   return tempTasks;
 }
 
-const initialTasks = [
-  { id: idGenerator.next().value, totalTime: "3d", timeToComplete: "1d", status: TaskStatus.IN_PROGRESS, name: "Première tâche" },
-  { id: idGenerator.next().value, totalTime: "5d", timeToComplete: "4d", status: TaskStatus.PAUSED, name: "Seconde tâche" }
-];
+const initialTasks = [];
 
 export const taskGroupSlice = createSlice({
   name: "taskGroup",
   initialState: {
-    tasks: initialTasks
+    tasks: initialTasks,
+    nextTaskId: 1
   },
   reducers: {
     addTask: (state, action) => {
-      state.tasks = [...state.tasks, action.payload];
+      state.tasks = [...state.tasks, { ...action.payload, id: state.nextTaskId }];
+      state.nextTaskId += 1;
     },
 
     deleteTask: (state, action) => {

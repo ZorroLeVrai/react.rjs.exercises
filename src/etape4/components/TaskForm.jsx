@@ -54,9 +54,9 @@ const TaskForm = ({formTitle, taskData, handleFormSubmit}) => {
   const submitHandler = formData => {
     const { taskName, totalTime, timeToComplete, taskStatus } = formData;
     const myTask = {
-      id: taskFormValue.id ?? idGenerator.next().value,
+      id: taskFormValue.id,
       totalTime,
-      timeToComplete: timeToComplete,
+      timeToComplete,
       status: TaskStatus[taskStatus],
       name: taskName
     };
