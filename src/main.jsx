@@ -1,14 +1,14 @@
 import React from 'react'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ReactDOM from 'react-dom/client';
-import RouterLayout from './RouterLayout.jsx';
+import RouterLayout from './commonComponents/RouterLayout.jsx';
 import App from './App.jsx';
 import { Etape0 } from './etape0/App.jsx';
 import { Etape1 } from './etape1/App.jsx';
 import { Etape2 } from './etape2/App.jsx';
 import { Etape3 } from './etape3/App.jsx';
 import { Etape4 } from './etape4/App.jsx';
-import NotFound from './NotFound.jsx';
+import NotFound from './commonComponents/NotFound.jsx';
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(

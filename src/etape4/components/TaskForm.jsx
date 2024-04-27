@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { TaskStatus } from '../../taskStatus';
-import { composeStyles, idGenerator, statusMap } from '../tools';
+import { composeStyles, statusMap } from '../tools';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { getTimeValue } from "../../timeConverter";

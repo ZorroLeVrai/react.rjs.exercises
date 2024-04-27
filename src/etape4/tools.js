@@ -18,21 +18,3 @@ export function getStatusName(statusSymbol) {
 export const composeStyles = (...args) => {
   return args.join(" ");
 }
-
-/**
- * Generate id numbers
- * @generator
- * @yields {number}
- * @returns {Generator<number>}
- */
-function* createIdGenerator() {
-  let index = 0;
-  while (true) {
-    yield ++index;
-  }
-}
-
-/**
- * @type {Generator<number>}
- */
-export const idGenerator = createIdGenerator();
