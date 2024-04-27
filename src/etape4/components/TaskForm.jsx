@@ -1,12 +1,12 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import styles from "./TaskForm.module.css";
-import { composeStyles, idGenerator, statusMap } from '../tools';
 import { TaskStatus } from '../../taskStatus';
-import PropTypes from 'prop-types';
+import { composeStyles, idGenerator, statusMap } from '../tools';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useEffect } from "react";
 import { getTimeValue } from "../../timeConverter";
+import PropTypes from 'prop-types';
+import styles from "./TaskForm.module.css";
 
 const datePattern = /^(\d+[dhms]\s*)+$/;
 
@@ -134,14 +134,14 @@ const TaskForm = ({formTitle, taskData, handleFormSubmit}) => {
 
 TaskForm.propTypes = {
   formTitle: PropTypes.string.isRequired,
-  handleFormSubmit: PropTypes.func.isRequired,
   taskData: PropTypes.shape({
     id: PropTypes.number,
     totalTime: PropTypes.string,
     timeToComplete: PropTypes.string,
     status: PropTypes.string,
     taskName: PropTypes.string
-  })
+  }),
+  handleFormSubmit: PropTypes.func.isRequired,
 };
 
 TaskForm.defaultProp = {

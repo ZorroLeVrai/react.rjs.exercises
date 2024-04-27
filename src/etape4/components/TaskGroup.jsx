@@ -1,16 +1,20 @@
-import { getTimeInFormat, getTimeValue } from '../../timeConverter';
-import PropTypes from 'prop-types';
+import { useState } from 'react';
 import Task from './Task';
-import { IoMdArrowDropright, IoMdArrowDropdown, IoMdAddCircle, IoMdRemoveCircle } from "react-icons/io";
 import ProgressStatusWithTooltip from './ProgressStatusWithTooltip';
 import { TaskStatus } from '../../taskStatus';
-import { useState } from 'react';
-import styles from "./TaskGroup.module.css";
-import { composeStyles } from '../tools';
 import TaskForm from './TaskForm';
-import { TaskGroupAction } from '../tasksReducer';
+import { getTimeInFormat, getTimeValue } from '../../timeConverter';
+import { IoMdArrowDropright, IoMdArrowDropdown, IoMdAddCircle, IoMdRemoveCircle } from "react-icons/io";
+import { composeStyles } from '../tools';
+import { useSelector, useDispatch } from "react-redux";
+import { addTask } from '../slices/taskGroupSlice';
+import PropTypes from 'prop-types';
+import styles from "./TaskGroup.module.css";
 
-export const TaskGroup = ({groupName, tasks, tasksDispatcher}) => {
+export const TaskGroup = ({groupName}) => {
+  const tasks = useSelector(state => state.taskGroup.tasks);
+  const dispatch = useDispatch();
+
   const [showTasks, setShowTasks] = useState(true);
   const [showForm, setShowForm] = useState(false);
 
@@ -36,7 +40,7 @@ export const TaskGroup = ({groupName, tasks, tasksDispatcher}) => {
   };
 
   const handleSubmitForm = (newTask) => {
-    tasksDispatcher({type: TaskGroupAction.ADD_TASK, payload: newTask});
+    dispatch(addTask(newTask));
   }
 
   return (
@@ -79,21 +83,12 @@ export const TaskGroup = ({groupName, tasks, tasksDispatcher}) => {
       key={task.id}
       taskData={task}
       isFirst={isFirst}
-      isLast={isLast}
-      tasksDispatcher={tasksDispatcher}/>
+      isLast={isLast} />
   }
 };
 
 TaskGroup.propTypes = {
-  groupName: PropTypes.string.isRequired,
-  tasks: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    totalTime: PropTypes.string.isRequired,
-    timeToComplete: PropTypes.string.isRequired,
-    status: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired
-  })).isRequired,
-  tasksDispatcher: PropTypes.func.isRequired
+  groupName: PropTypes.string.isRequired
 }
 
 class TimeMetrics {

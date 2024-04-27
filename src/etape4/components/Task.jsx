@@ -1,18 +1,20 @@
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { ErrorBoundary } from "react-error-boundary";
+import TaskForm from "./TaskForm";
 import ProgressStatusWithTooltip from './ProgressStatusWithTooltip';
 import { FaEdit } from "react-icons/fa";
 import { TiDelete } from "react-icons/ti";
 import { GoMoveToTop, GoMoveToBottom } from "react-icons/go";
 import { getTimeValue } from '../../timeConverter';
-import styles from "./Task.module.css";
 import PropTypes from 'prop-types';
 import { getStatusName } from "../tools";
-import TaskForm from "./TaskForm";
-import { useState } from "react";
-import { TaskGroupAction } from "../tasksReducer";
+import { deleteTask, editTask, moveDownTask, moveUpTask } from "../slices/taskGroupSlice";
+import styles from "./Task.module.css";
 
-const Task = ({taskData, isFirst, isLast, tasksDispatcher}) => {
+const Task = ({taskData, isFirst, isLast}) => {
   const { id, totalTime, timeToComplete, status, name: taskName } = taskData;
+  const dispatch = useDispatch();
 
   const totalTimeInSeconds = getTimeValue(totalTime);
   const timeToCompleteInSeconds = getTimeValue(timeToComplete);
@@ -27,19 +29,19 @@ const Task = ({taskData, isFirst, isLast, tasksDispatcher}) => {
 
   const handleFormEdit = (currentTask) => {
     setIsEditMode(false);
-    tasksDispatcher({type: TaskGroupAction.EDIT_TASK, payload: currentTask});
+    dispatch(editTask(currentTask));
   };
 
   const handleTaskDelete = () => {
-    tasksDispatcher({type: TaskGroupAction.DELETE_TASK, payload: taskData});
+    dispatch(deleteTask(taskData));
   }
 
   const handleTaskMoveUp = () => {
-    tasksDispatcher({type: TaskGroupAction.MOVE_UP_TASK, payload: taskData});
+    dispatch(moveUpTask(taskData));
   }
 
   const handleTaskMoveDown = () => {
-    tasksDispatcher({type: TaskGroupAction.MOVE_DOWN_TASK, payload: taskData});
+    dispatch(moveDownTask(taskData));
   }
 
   return (
@@ -76,7 +78,6 @@ Task.propTypes = {
     status: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired
   }),
-  tasksDispatcher: PropTypes.func.isRequired,
   isFirst: PropTypes.bool,
   isLast: PropTypes.bool,
 };
