@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import Task from './Task';
 import ProgressStatusWithTooltip from './ProgressStatusWithTooltip';
 import { TaskStatus } from '../../taskStatus';
@@ -6,14 +6,14 @@ import TaskForm from './TaskForm';
 import { getTimeInFormat, getTimeValue } from '../../timeConverter';
 import { IoMdArrowDropright, IoMdArrowDropdown, IoMdAddCircle, IoMdRemoveCircle } from "react-icons/io";
 import { composeStyles } from '../tools';
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { addTask } from '../slices/taskGroupSlice';
 import PropTypes from 'prop-types';
 import styles from "./TaskGroup.module.css";
+import TimeMetrics from '../TimeMetrics';
 
-export const TaskGroup = ({groupName}) => {
+const LocalTaskGroup = ({groupName}) => {
   const tasks = useSelector(state => state.taskGroup.tasks);
-  const dispatch = useDispatch();
 
   const [showTasks, setShowTasks] = useState(true);
   const [showForm, setShowForm] = useState(false);
@@ -39,9 +39,9 @@ export const TaskGroup = ({groupName}) => {
     setShowForm(current => !current);
   };
 
-  const handleSubmitForm = (newTask) => {
-    dispatch(addTask(newTask));
-  }
+  const handleSubmitForm = useCallback((myDispatch, newTask) => {
+    myDispatch(addTask(newTask));
+  }, []);
 
   return (
     <>
@@ -87,19 +87,9 @@ export const TaskGroup = ({groupName}) => {
   }
 };
 
-TaskGroup.propTypes = {
+LocalTaskGroup.propTypes = {
   groupName: PropTypes.string.isRequired
 }
 
-class TimeMetrics {
-  constructor(total, remaining) {
-    this.total = total;
-    this.remaining = remaining;
-  }
+export const TaskGroup = React.memo(LocalTaskGroup);
 
-  add(otherTimeMetrics) {
-    this.total += otherTimeMetrics.total;
-    this.remaining += otherTimeMetrics.remaining;
-    return this;
-  }
-}

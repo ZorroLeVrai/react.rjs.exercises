@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import { ErrorBoundary } from "react-error-boundary";
 import TaskForm from "./TaskForm";
@@ -12,7 +12,7 @@ import { getStatusName } from "../tools";
 import { deleteTask, editTask, moveDownTask, moveUpTask } from "../slices/taskGroupSlice";
 import styles from "./Task.module.css";
 
-const Task = ({taskData, isFirst, isLast}) => {
+const LocalTask = ({taskData, isFirst, isLast}) => {
   const { id, totalTime, timeToComplete, status, name: taskName } = taskData;
   const dispatch = useDispatch();
 
@@ -27,10 +27,10 @@ const Task = ({taskData, isFirst, isLast}) => {
     setIsEditMode(current => !current);
   };
 
-  const handleFormEdit = (currentTask) => {
+  const handleFormEdit = useCallback((myDispatch, currentTask) => {
     setIsEditMode(false);
-    dispatch(editTask(currentTask));
-  };
+    myDispatch(editTask(currentTask));
+  }, []);
 
   const handleTaskDelete = () => {
     dispatch(deleteTask(taskData));
@@ -43,6 +43,11 @@ const Task = ({taskData, isFirst, isLast}) => {
   const handleTaskMoveDown = () => {
     dispatch(moveDownTask(taskData));
   }
+
+  const taskDataForForm = useMemo(
+    () => ({id, totalTime, timeToComplete, status, taskName}),
+    [id, totalTime, timeToComplete, status, taskName]
+  );
 
   return (
     <ErrorBoundary fallback={<div>Erreur dans la tâche</div>} >
@@ -64,13 +69,13 @@ const Task = ({taskData, isFirst, isLast}) => {
           name={taskName}
           totalTime={totalTime}
           timeToComplete={timeToComplete}/>
-        {isEditMode && <TaskForm formTitle={`Modifiez la tâche ${taskName}`} taskData={{id, totalTime, timeToComplete, status, taskName}} handleFormSubmit={handleFormEdit}/>}
+        {isEditMode && <TaskForm formTitle={`Modifiez la tâche ${taskName}`} taskData={taskDataForForm} handleFormSubmit={handleFormEdit}/>}
       </div>
     </ErrorBoundary>
   );
-}
+};
 
-Task.propTypes = {
+LocalTask.propTypes = {
   taskData: PropTypes.shape({
     id: PropTypes.number.isRequired,
     totalTime: PropTypes.string.isRequired,
@@ -82,9 +87,10 @@ Task.propTypes = {
   isLast: PropTypes.bool,
 };
 
-Task.defaultProp = {
+LocalTask.defaultProp = {
   isFirst: false,
   isLast: false
 };
 
+const Task = React.memo(LocalTask);
 export default Task;

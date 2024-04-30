@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import { useMemo } from 'react';
 
 /* Higher Order Component to add a tooltip to a React component*/
 /* renderTooltip uses a render prop to render its component */
@@ -9,7 +10,7 @@ const withToolTip = (Component, renderTooltip) => {
     const [showTooltip, setShowTooltip] = useState(false);
     const [mousePosition, setMousePosition] = useState({x: 0, y: 0});
     const {totalTime, timeToComplete } = props;
-    const generatedTooltipText = generateTooltipText(totalTime, timeToComplete);
+    const generatedTooltipText = useMemo(() => generateTooltipText(totalTime, timeToComplete), [totalTime, timeToComplete]);
 
     const mouseOver = () => setShowTooltip(true);
     const mouseOut = () => setShowTooltip(false);

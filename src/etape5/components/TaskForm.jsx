@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { TaskStatus } from '../../taskStatus';
 import { composeStyles, statusMap } from '../tools';
@@ -7,6 +7,7 @@ import { z } from "zod";
 import { getTimeValue } from "../../timeConverter";
 import PropTypes from 'prop-types';
 import styles from "./TaskForm.module.css";
+import { useDispatch } from "react-redux";
 
 const datePattern = /^(\d+[dhms]\s*)+$/;
 
@@ -39,8 +40,9 @@ const defaultFormValues = {
   taskStatus: ""
 };
 
-const TaskForm = ({formTitle, taskData, handleFormSubmit}) => {
+const LocalTaskForm = ({formTitle, taskData, handleFormSubmit}) => {
   const taskFormValue = taskData ? {...taskData, taskStatus: taskData.status} : defaultFormValues;
+  const dispatch = useDispatch();
 
   const { register, formState, handleSubmit, reset, getValues, setValue }
     = useForm({resolver: zodResolver(schema), mode: "onChange", defaultValues: taskFormValue});
@@ -61,7 +63,7 @@ const TaskForm = ({formTitle, taskData, handleFormSubmit}) => {
       name: taskName
     };
 
-    handleFormSubmit(myTask);
+    handleFormSubmit(dispatch, myTask);
   };
 
   const handleStatusSelect = (event) => {
@@ -132,7 +134,7 @@ const TaskForm = ({formTitle, taskData, handleFormSubmit}) => {
   )
 };
 
-TaskForm.propTypes = {
+LocalTaskForm.propTypes = {
   formTitle: PropTypes.string.isRequired,
   taskData: PropTypes.shape({
     id: PropTypes.number,
@@ -144,8 +146,9 @@ TaskForm.propTypes = {
   handleFormSubmit: PropTypes.func.isRequired,
 };
 
-TaskForm.defaultProp = {
+LocalTaskForm.defaultProp = {
   taskData: null
 };
 
+const TaskForm = React.memo(LocalTaskForm);
 export default TaskForm;
