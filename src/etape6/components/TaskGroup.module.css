@@ -1,0 +1,26 @@
+.groupTaskContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.groupTaskIcon {
+  flex: 0 1 auto;
+  position: relative;
+  top: 0.3rem;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.groupTaskItemGrow {
+  flex: 1 1 auto;
+}
+
+.groupNameMargin {
+  margin: 0 0 0.2rem;
+}
+
+.icon:hover {
+  cursor: pointer;
+}

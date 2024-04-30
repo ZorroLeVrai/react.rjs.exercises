@@ -12,6 +12,7 @@ const RouterLayout = () => {
         <LinkElement to="/etape3" text="etape 3" />
         <LinkElement to="/etape4" text="etape 4" />
         <LinkElement to="/etape5" text="etape 5" />
+        <LinkElement to="/etape6" text="etape 6" />
       </div>
       <div>
         <Outlet />

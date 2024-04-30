@@ -1,0 +1,8 @@
+.tooltip {
+  position: absolute;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 0.2rem;
+  padding: 0.2rem;
+  transform: translateY(-100%);
+}

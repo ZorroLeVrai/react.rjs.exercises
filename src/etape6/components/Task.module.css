@@ -1,0 +1,37 @@
+.lightBorder {
+  border: 2px solid white;
+  border-radius: 0.5rem;
+}
+
+.lightBorder:hover {
+  border: 2px solid black;
+  border-radius: 0.5rem;
+}
+
+.taskPadding {
+  padding: 0.5rem 0.2rem 0 1rem;
+}
+
+.taskMargin {
+  margin: 0.2rem 0;
+}
+
+.task {
+  composes: lightBorder taskPadding taskMargin;
+}
+
+.taskName {
+  margin: 0 0 0.1rem;
+}
+
+.icon:hover {
+  cursor: pointer;
+}
+
+.task .icon {
+  visibility: hidden;
+}
+
+.task:hover .icon {
+  visibility: visible;
+}

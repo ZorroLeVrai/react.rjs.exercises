@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
-import styles from "./LinkELement.module.css";
+import styles from "./LinkElement.module.css";
 
 const LinkElement = ({to, text}) => {
   return (
