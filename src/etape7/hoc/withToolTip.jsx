@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 /* Higher Order Component to add a tooltip to a React component*/
 /* renderTooltip uses a render prop to render its component */
@@ -10,15 +10,22 @@ const withToolTip = (Component, renderTooltip) => {
     const [showTooltip, setShowTooltip] = useState(false);
     const [mousePosition, setMousePosition] = useState({x: 0, y: 0});
     const {totalTime, timeToComplete } = props;
-    const generatedTooltipText = useMemo(() => generateTooltipText(totalTime, timeToComplete), [totalTime, timeToComplete]);
+    const { t } = useTranslation();
 
+    const generatedTooltipText = useMemo(() => {
+      return [
+        t("total_time", {time: totalTime}),
+        t("remaining_time", {time: timeToComplete})
+      ];
+    }, [t, totalTime, timeToComplete]);
+    
     const mouseOver = () => setShowTooltip(true);
     const mouseOut = () => setShowTooltip(false);
     const mouseMove = (e) => {
       if (!showTooltip)
-        return;
-      setMousePosition({x: e.clientX, y: e.clientY});
-    };
+      return;
+    setMousePosition({x: e.clientX, y: e.clientY});
+  };
 
     return (
       <>
@@ -38,11 +45,6 @@ const withToolTip = (Component, renderTooltip) => {
   return EnhancedComponent;
 }
 
-function generateTooltipText(totalTime, timeToComplete) {
-  return [
-    `Temps total: ${totalTime}`,
-    `Temps restant: ${timeToComplete}`
-  ];
-}
+
 
 export default withToolTip;

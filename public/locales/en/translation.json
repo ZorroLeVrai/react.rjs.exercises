@@ -4,5 +4,7 @@
   "not_started": "Not started",
   "in_progress": "In progress",
   "paused": "Paused",
-  "completed": "Completed"
+  "completed": "Completed",
+  "total_time": "Total time: {{time}}",
+  "remaining_time": "Remaining time {{time}}"
 }
