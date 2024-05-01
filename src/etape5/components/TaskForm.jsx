@@ -126,7 +126,7 @@ const LocalTaskForm = ({formTitle, taskData, handleFormSubmit}) => {
             Initialiser
           </button>
         </div>
-        <div className="flexRightAlign">
+        <div className="flexItemRightAlign">
           <input disabled={!isValid} type="submit" />
         </div>
       </div>
