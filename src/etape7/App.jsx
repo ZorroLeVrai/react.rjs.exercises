@@ -22,8 +22,8 @@ function App() {
             <button className="margin-small" type="submit" key={lang} onClick={() => i18n.changeLanguage(lang)} disabled={i18n.resolvedLanguage === lang}>{languages[lang].nativeName}</button>
           ))}
         </div>
-        <h1 className="center-text">{t("manageTasks", {step_number: 7})}</h1>
-        <TaskGroup groupName="Mon premier groupe"/>
+        <h1 className="center-text">{t("manage-tasks", {step_number: 7})}</h1>
+        <TaskGroup groupName={t("first-group")}/>
       </PersistGate>
     </Provider>
   );

@@ -1,0 +1,8 @@
+{
+  "manage-tasks": "Gestion des tâches (étape {{step_number}})",
+  "first-group": "Mon premier groupe",
+  "not_started": "Non débutée",
+  "in_progress": "En cours",
+  "paused": "En pause",
+  "completed": "Terminée"
+}

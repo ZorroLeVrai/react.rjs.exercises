@@ -1,0 +1,8 @@
+{
+  "manage-tasks": "Managing tasks (step {{step_number}})",
+  "first-group": "My first group",
+  "not_started": "Not started",
+  "in_progress": "In progress",
+  "paused": "Paused",
+  "completed": "Completed"
+}

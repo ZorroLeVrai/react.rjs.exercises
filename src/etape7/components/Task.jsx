@@ -10,16 +10,18 @@ import { getTimeValue } from '../../timeConverter';
 import PropTypes from 'prop-types';
 import { getStatusName } from "../tools";
 import { deleteTask, editTask, moveDownTask, moveUpTask } from "../slices/taskGroupSlice";
+import { useTranslation } from "react-i18next";
 import styles from "./Task.module.css";
 
 const LocalTask = ({taskData, isFirst, isLast}) => {
   const { id, totalTime, timeToComplete, status, name: taskName } = taskData;
   const dispatch = useDispatch();
+  const {t} = useTranslation();
 
   const totalTimeInSeconds = getTimeValue(totalTime);
   const timeToCompleteInSeconds = getTimeValue(timeToComplete);
   const progressTimeInSeconds = totalTimeInSeconds - timeToCompleteInSeconds;
-  const statusName = getStatusName(status);
+  const statusName = t(getStatusName(status));
 
   const [isEditMode, setIsEditMode] = useState(false);
 

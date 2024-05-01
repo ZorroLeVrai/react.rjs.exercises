@@ -16,21 +16,23 @@ import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route element={<RouterLayout/>}>
-          <Route path="/" element={<App />} />
-          <Route path="/etape0" element={<Etape0.App/>} />
-          <Route path="/etape1" element={<Etape1.App/>} />
-          <Route path="/etape2" element={<Etape2.App/>} />
-          <Route path="/etape3" element={<Etape3.App/>} />
-          <Route path="/etape4" element={<Etape4.App/>} />
-          <Route path="/etape5" element={<Etape5.App/>} />
-          <Route path="/etape6" element={<Etape6.App/>} />
-          <Route path="/etape7" element={<Etape7.App/>} />
-          <Route path="*" element={<NotFound/>} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <React.Suspense fallback={<div>loading...</div>}>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<RouterLayout/>}>
+            <Route path="/" element={<App />} />
+            <Route path="/etape0" element={<Etape0.App/>} />
+            <Route path="/etape1" element={<Etape1.App/>} />
+            <Route path="/etape2" element={<Etape2.App/>} />
+            <Route path="/etape3" element={<Etape3.App/>} />
+            <Route path="/etape4" element={<Etape4.App/>} />
+            <Route path="/etape5" element={<Etape5.App/>} />
+            <Route path="/etape6" element={<Etape6.App/>} />
+            <Route path="/etape7" element={<Etape7.App/>} />
+            <Route path="*" element={<NotFound/>} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </React.Suspense>
   </React.StrictMode>,
 );

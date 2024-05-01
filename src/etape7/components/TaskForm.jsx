@@ -9,6 +9,7 @@ import { getTimeValue } from "../../timeConverter";
 import PropTypes from 'prop-types';
 import styles from "./TaskForm.module.css";
 import { Transition } from 'react-transition-group';
+import { useTranslation } from "react-i18next";
 
 const datePattern = /^(\d+[dhms]\s*)+$/;
 
@@ -44,6 +45,7 @@ const defaultFormValues = {
 const LocalTaskForm = ({formTitle, taskData, handleFormSubmit}) => {
   const taskFormValue = taskData ? {...taskData, taskStatus: taskData.status} : defaultFormValues;
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const { register, formState, handleSubmit, reset, getValues, setValue }
     = useForm({resolver: zodResolver(schema), mode: "onChange", defaultValues: taskFormValue});
@@ -142,7 +144,7 @@ const LocalTaskForm = ({formTitle, taskData, handleFormSubmit}) => {
               <label htmlFor="task-status">Statut de la tâche</label>
               <select {...register("taskStatus", {onChange: handleStatusSelect})} id="task-status">
                 <option value="">Sélectionnez un statut...</option>
-                {Array.from(statusMap).map((statusItem, index) => <option key={index} value={statusItem[0]}>{statusItem[1]}</option>)}
+                {Array.from(statusMap).map((statusItem, index) => <option key={index} value={statusItem[0]}>{t(statusItem[1])}</option>)}
               </select>
               {errors.timeToComplete && <div className={warningStyle}>{errors.timeToComplete.message}</div>}
               <label htmlFor="task-remaining-time">Temps restant estimé</label>
