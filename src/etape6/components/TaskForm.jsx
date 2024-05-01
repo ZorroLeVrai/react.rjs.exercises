@@ -52,7 +52,7 @@ const LocalTaskForm = ({formTitle, taskData, handleFormSubmit}) => {
   const { gridFormContainer, gridDoubleItem } = styles;
   const warningStyle = composeStyles("center-text", "warning-text", gridDoubleItem);
 
-  const timePlaceHolder = "1d 2h 3m 4s (Nombre de jours heures minutes années)";
+  const timePlaceHolder = "1d 2h 3m 4s (Nombre de jours heures minutes secondes)";
 
   const submitHandler = formData => {
     const { taskName, totalTime, timeToComplete, taskStatus } = formData;
