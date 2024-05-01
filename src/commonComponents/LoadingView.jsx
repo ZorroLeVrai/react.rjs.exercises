@@ -1,4 +1,4 @@
-import { composeStyles } from "../etape6/tools";
+import { composeStyles } from "../etape7/tools";
 import styles from "./LoadingView.module.css";
 
 const LoadingView = () => {

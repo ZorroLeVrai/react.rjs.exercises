@@ -9,9 +9,10 @@ import { Etape2 } from './etape2/App.jsx';
 import { Etape3 } from './etape3/App.jsx';
 import { Etape4 } from './etape4/App.jsx';
 import { Etape5 } from './etape5/App.jsx';
+import { Etape6 } from './etape6/App.jsx';
+import { Etape7 } from './etape7/App.jsx';
 import NotFound from './commonComponents/NotFound.jsx';
 import './index.css';
-import { Etape6 } from './etape6/App.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -26,6 +27,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="/etape4" element={<Etape4.App/>} />
           <Route path="/etape5" element={<Etape5.App/>} />
           <Route path="/etape6" element={<Etape6.App/>} />
+          <Route path="/etape7" element={<Etape7.App/>} />
           <Route path="*" element={<NotFound/>} />
         </Route>
       </Routes>
