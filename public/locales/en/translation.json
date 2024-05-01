@@ -6,5 +6,15 @@
   "paused": "Paused",
   "completed": "Completed",
   "total_time": "Total time: {{time}}",
-  "remaining_time": "Remaining time {{time}}"
+  "remaining_time": "Remaining time {{time}}",
+  "task_name": "Task name",
+  "estimated_total_time": "Estimated total time",
+  "estimated_remaining_time": "Estimated remaining time",
+  "task_status": "Task status",
+  "reset_form": "Reset",
+  "submit_form": "Submit",
+  "add_task": "Add a task",
+  "modify_task": "Modify task {{task_name}}",
+  "select_task_status": "Select a status...",
+  "time_place_holder": "1d 2h 3m 4s (Number of days hours minutes seconds)"
 }

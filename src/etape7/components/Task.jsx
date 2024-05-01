@@ -71,7 +71,7 @@ const LocalTask = ({taskData, isFirst, isLast}) => {
           name={taskName}
           totalTime={totalTime}
           timeToComplete={timeToComplete}/>
-        {isEditMode && <TaskForm formTitle={`Modifiez la tâche ${taskName}`} taskData={taskDataForForm} handleFormSubmit={handleFormEdit}/>}
+        {isEditMode && <TaskForm formTitle={t("modify_task", {task_name: taskName})} taskData={taskDataForForm} handleFormSubmit={handleFormEdit}/>}
       </div>
     </ErrorBoundary>
   );

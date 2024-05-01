@@ -6,5 +6,15 @@
   "paused": "En pause",
   "completed": "Terminée",
   "total_time": "Temps total: {{time}}",
-  "remaining_time": "Temps restant: {{time}}"
+  "remaining_time": "Temps restant: {{time}}",
+  "task_name": "Nom de la tâche",
+  "estimated_total_time": "Temps total estimé",
+  "estimated_remaining_time": "Temps restant estimé",
+  "task_status": "Statut de la tâche",
+  "reset_form": "Initialisez",
+  "submit_form": "Soumettre",
+  "add_task": "Ajoutez une tâche",
+  "modify_task": "Modifiez la tâche {{task_name}}",
+  "select_task_status": "Sélectionnez un statut...",
+  "time_place_holder": "1d 2h 3m 4s (Nombre de jours heures minutes secondes)"
 }

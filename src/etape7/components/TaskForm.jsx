@@ -54,8 +54,6 @@ const LocalTaskForm = ({formTitle, taskData, handleFormSubmit}) => {
   const { gridFormContainer, gridDoubleItem } = styles;
   const warningStyle = composeStyles("center-text", "warning-text", gridDoubleItem);
 
-  const timePlaceHolder = "1d 2h 3m 4s (Nombre de jours heures minutes années)";
-
   const submitHandler = formData => {
     const { taskName, totalTime, timeToComplete, taskStatus } = formData;
     const myTask = {
@@ -135,30 +133,30 @@ const LocalTaskForm = ({formTitle, taskData, handleFormSubmit}) => {
             <h2 className="center-text">{formTitle}</h2>
             <div className={gridFormContainer}>
               {errors.taskName && <div className={warningStyle}>{errors.taskName.message}</div>}
-              <label htmlFor="task-name">Nom de la tâche</label>
-              <input {...register("taskName")} id="task-name" type="text" placeholder="Nom de la tâche"/>
+              <label htmlFor="task-name">{t("task_name")}</label>
+              <input {...register("taskName")} id="task-name" type="text" placeholder={t("task_name")}/>
               {errors.totalTime && <div className={warningStyle}>{errors.totalTime.message}</div>}
-              <label htmlFor="task-total-time">Temps total estimé</label>
-              <input {...register(totalTimeField)} id="task-total-time" type="text" placeholder={timePlaceHolder}/>
+              <label htmlFor="task-total-time">{t("estimated_total_time")}</label>
+              <input {...register(totalTimeField)} id="task-total-time" type="text" placeholder={t("time_place_holder")}/>
               {errors.taskStatus && <div className={warningStyle}>{errors.taskStatus.message}</div>}
-              <label htmlFor="task-status">Statut de la tâche</label>
+              <label htmlFor="task-status">{t("task_status")}</label>
               <select {...register("taskStatus", {onChange: handleStatusSelect})} id="task-status">
-                <option value="">Sélectionnez un statut...</option>
+                <option value="">{t("select_task_status")}</option>
                 {Array.from(statusMap).map((statusItem, index) => <option key={index} value={statusItem[0]}>{t(statusItem[1])}</option>)}
               </select>
               {errors.timeToComplete && <div className={warningStyle}>{errors.timeToComplete.message}</div>}
-              <label htmlFor="task-remaining-time">Temps restant estimé</label>
-              <input {...register(timeToCompleteField)} id="task-remaining-time" type="text" placeholder={timePlaceHolder}/>
+              <label htmlFor="task-remaining-time">{t("estimated_remaining_time")}</label>
+              <input {...register(timeToCompleteField)} id="task-remaining-time" type="text" placeholder={t("time_place_holder")}/>
             </div>
             
             <div className="flexSpaceBetween">
               <div className={styles.buttonVerticalMargin}>
                 <button onClick={resetFormData}>
-                  Initialiser
+                  {t("reset_form")}
                 </button>
               </div>
               <div className="flexItemRightAlign">
-                <input disabled={!isValid} type="submit" />
+                <input disabled={!isValid} type="submit" value={t("submit_form")} />
               </div>
             </div>
           </form>

@@ -8,12 +8,14 @@ import { IoMdArrowDropright, IoMdArrowDropdown, IoMdAddCircle, IoMdRemoveCircle 
 import { composeStyles } from '../tools';
 import { useSelector } from "react-redux";
 import { addTask } from '../slices/taskGroupSlice';
+import { useTranslation } from 'react-i18next';
+import TimeMetrics from '../TimeMetrics';
 import PropTypes from 'prop-types';
 import styles from "./TaskGroup.module.css";
-import TimeMetrics from '../TimeMetrics';
 
 const LocalTaskGroup = ({groupName}) => {
   const tasks = useSelector(state => state.taskGroup.tasks);
+  const { t } = useTranslation();
 
   const [showTasks, setShowTasks] = useState(true);
   const [showForm, setShowForm] = useState(false);
@@ -64,7 +66,7 @@ const LocalTaskGroup = ({groupName}) => {
               name={groupName}
               totalTime={totalTime}
               timeToComplete={totalTimeToComplete}/>
-          {showForm && <TaskForm formTitle="Ajoutez une tâche" handleFormSubmit={handleSubmitForm}/>}
+          {showForm && <TaskForm formTitle={t("add_task")} handleFormSubmit={handleSubmitForm}/>}
           {
             showTasks && <div>
               {tasks.map(taskToComponent)}

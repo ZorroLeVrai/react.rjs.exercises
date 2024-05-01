@@ -1,6 +1,6 @@
 .gridFormContainer {
   display: grid;
-  grid-template-columns: 10rem auto;
+  grid-template-columns: 11rem auto;
   margin: 0.2rem;
   row-gap: 0.2rem;
 }
