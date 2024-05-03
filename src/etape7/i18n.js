@@ -12,7 +12,7 @@ i18next
     debug: false,
     backend: {
       // for all available options read the backend's repository readme file
-      loadPath: '/locales/{{lng}}/{{ns}}.json'
+      loadPath: '/locales/{{lng}}/translation.json'
     }
   });
 
