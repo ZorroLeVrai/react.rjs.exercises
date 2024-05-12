@@ -1,8 +1,8 @@
 # Gestion des tâches
 Dans cette application, on se propose de gérer des tâches.
 
-Chaque tâche possède les propriété suivantes
-- Identifiant de la tâche.
+Chaque tâche possède les propriétés suivantes
+- Identifiant de la tâche (qui ne sera pas affiché).
 - Nom de la tâche.
 - Temps estimé pour la réalisation de la tâche.
 - Temps restant estimé pour terminer la tâche.
