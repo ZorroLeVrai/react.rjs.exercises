@@ -12,9 +12,10 @@ Chaque tâche possède les propriétés suivantes
 - Créez une application React avec un composant Task qui représente la tâche décrite précédemment.
 - Utilisez un tableau de tâches qui représentera les tâches à afficher.
 - La tâche est représentée avec un élément progress bar.
-  - Ajoutez une icône pour pouvoir éditer la tâche.
-  - Ajoutez une icône pour pouvoir supprimer la tâche.
-  - Ajoutez des icônes pour pouvoir déplacer la tâche dans la liste.
+  - Ajoutez une icône pour pouvoir éditer la tâche (composant FaEdit de react-icons/fa).
+  - Ajoutez une icône pour pouvoir supprimer la tâche  (composant TiDelete de react-icons/ti).
+  - Ajoutez une icône pour pouvoir déplacer la tâche vers le haut (composant GoMoveToTop de react-icons/go).
+  - Ajoutez une icône pour pouvoir déplacer la tâche vers le bas (composant GoMoveToBottom de react-icons/go).
 
 ## Etape 2
 - Mettez en place les PropTypes et les DefaultTypes pour les composants.
