@@ -51,6 +51,8 @@ const LocalTask = ({taskData, isFirst, isLast}) => {
     [id, totalTime, timeToComplete, status, taskName]
   );
 
+  const formTitle = useMemo(() => t("modify_task", {task_name: taskName}), [taskName]);
+
   return (
     <ErrorBoundary fallback={<div>Erreur dans la tâche</div>} >
       <div className={styles.task}>
@@ -71,7 +73,7 @@ const LocalTask = ({taskData, isFirst, isLast}) => {
           name={taskName}
           totalTime={totalTime}
           timeToComplete={timeToComplete}/>
-        {isEditMode && <TaskForm formTitle={t("modify_task", {task_name: taskName})} taskData={taskDataForForm} handleFormSubmit={handleFormEdit}/>}
+        {isEditMode && <TaskForm formTitle={formTitle} taskData={taskDataForForm} handleFormSubmit={handleFormEdit}/>}
       </div>
     </ErrorBoundary>
   );

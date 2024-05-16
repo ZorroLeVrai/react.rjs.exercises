@@ -1,3 +1,4 @@
+import React from 'react';
 import { composeStyles } from '../tools';
 import { TaskStatus } from '../../taskStatus';
 import styles from "./ProgressStatus.module.css";
@@ -40,4 +41,4 @@ function getStatusStyle(statusSymbol) {
   }
 }
 
-export default ProgressStatus;
+export default React.memo(ProgressStatus);
