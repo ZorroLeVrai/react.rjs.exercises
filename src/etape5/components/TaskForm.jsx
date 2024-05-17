@@ -7,7 +7,6 @@ import { z } from "zod";
 import { getTimeValue } from "../../timeConverter";
 import PropTypes from 'prop-types';
 import styles from "./TaskForm.module.css";
-import { useDispatch } from "react-redux";
 
 const datePattern = /^(\d+[dhms]\s*)+$/;
 
@@ -42,7 +41,6 @@ const defaultFormValues = {
 
 const LocalTaskForm = ({formTitle, taskData, handleFormSubmit}) => {
   const taskFormValue = taskData ? {...taskData, taskStatus: taskData.status} : defaultFormValues;
-  const dispatch = useDispatch();
 
   const { register, formState, handleSubmit, reset, getValues, setValue }
     = useForm({resolver: zodResolver(schema), mode: "onChange", defaultValues: taskFormValue});
@@ -63,7 +61,7 @@ const LocalTaskForm = ({formTitle, taskData, handleFormSubmit}) => {
       name: taskName
     };
 
-    handleFormSubmit(dispatch, myTask);
+    handleFormSubmit(myTask);
   };
 
   const handleStatusSelect = (event) => {

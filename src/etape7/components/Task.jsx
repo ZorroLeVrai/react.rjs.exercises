@@ -29,10 +29,10 @@ const LocalTask = ({taskData, isFirst, isLast}) => {
     setIsEditMode(current => !current);
   };
 
-  const handleFormEdit = useCallback((myDispatch, currentTask) => {
+  const handleFormEdit = useCallback((currentTask) => {
     setIsEditMode(false);
-    myDispatch(editTask(currentTask));
-  }, []);
+    dispatch(editTask(currentTask));
+  }, [dispatch]);
 
   const handleTaskDelete = () => {
     dispatch(deleteTask(taskData));
