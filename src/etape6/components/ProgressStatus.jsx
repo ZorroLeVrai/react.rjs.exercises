@@ -2,6 +2,7 @@ import { composeStyles } from '../tools';
 import { TaskStatus } from '../../taskStatus';
 import styles from "./ProgressStatus.module.css";
 import PropTypes from 'prop-types';
+import React from 'react';
 
 const ProgressStatus = ({progressValue, progressMax, title, status, name}) => {
   const factor = progressMax ? 100 / progressMax : 0;
@@ -40,4 +41,4 @@ function getStatusStyle(statusSymbol) {
   }
 }
 
-export default ProgressStatus;
+export default React.memo(ProgressStatus);
