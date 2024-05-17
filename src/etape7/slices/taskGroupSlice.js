@@ -1,18 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { TaskStatus } from "../../taskStatus";
 
 /**
  * 
  * @param {TaskType[]} tasks - The array of tasks
  * @param {number} firstIndex - First index to swap
  * @param {number} secondIndex - Second index to swap
- * @returns {TaskType[]} The array with the swap tasks
  */
 function handleSwapTasks(tasks, firstIndex, secondIndex) {
-  const tempTasks = [...tasks];
   //exchange indexes
-  [tempTasks[firstIndex], tempTasks[secondIndex]] = [tempTasks[secondIndex], tempTasks[firstIndex]];
-  return tempTasks;
+  [tasks[firstIndex], tasks[secondIndex]] = [tasks[secondIndex], tasks[firstIndex]];
 }
 
 const initialTasks = [];
@@ -25,7 +21,7 @@ export const taskGroupSlice = createSlice({
   },
   reducers: {
     addTask: (state, action) => {
-      state.tasks = [...state.tasks, { ...action.payload, id: state.nextTaskId }];
+      state.tasks.push({ ...action.payload, id: state.nextTaskId });
       state.nextTaskId += 1;
     },
 
@@ -39,7 +35,7 @@ export const taskGroupSlice = createSlice({
       if (taskIndex < 0)
         throw new Error("Task id was not found");
 
-      state.tasks = [...tasks.slice(0, taskIndex), action.payload, ...tasks.slice(taskIndex + 1)];
+      state.tasks[taskIndex] = action.payload;
     },
 
     moveUpTask: (state, action) => {
@@ -50,7 +46,7 @@ export const taskGroupSlice = createSlice({
       if (taskIndex === 0)
         throw new Error("Bad task id");
 
-      state.tasks = handleSwapTasks(state.tasks, taskIndex, taskIndex - 1);
+      handleSwapTasks(state.tasks, taskIndex, taskIndex - 1);
     },
 
     moveDownTask: (state, action) => {
@@ -61,7 +57,7 @@ export const taskGroupSlice = createSlice({
       if (taskIndex + 1 >= state.tasks.length)
         throw new Error("Bad task id");
 
-      state.tasks = handleSwapTasks(state.tasks, taskIndex, taskIndex + 1);
+      handleSwapTasks(state.tasks, taskIndex, taskIndex + 1);
     }
   }
 });

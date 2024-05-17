@@ -6,7 +6,7 @@ import TaskForm from './TaskForm';
 import { getTimeInFormat, getTimeValue } from '../../timeConverter';
 import { IoMdArrowDropright, IoMdArrowDropdown, IoMdAddCircle, IoMdRemoveCircle } from "react-icons/io";
 import { composeStyles } from '../tools';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addTask } from '../slices/taskGroupSlice';
 import { useTranslation } from 'react-i18next';
 import TimeMetrics from '../TimeMetrics';
@@ -15,6 +15,7 @@ import styles from "./TaskGroup.module.css";
 
 const LocalTaskGroup = ({groupName}) => {
   const tasks = useSelector(state => state.taskGroup.tasks);
+  const dispatch = useDispatch();
   const { t } = useTranslation();
 
   const [showTasks, setShowTasks] = useState(true);
@@ -41,9 +42,9 @@ const LocalTaskGroup = ({groupName}) => {
     setShowForm(current => !current);
   };
 
-  const handleSubmitForm = useCallback((myDispatch, newTask) => {
-    myDispatch(addTask(newTask));
-  }, []);
+  const handleSubmitForm = useCallback((newTask) => {
+    dispatch(addTask(newTask));
+  }, [dispatch]);
 
   return (
     <>
