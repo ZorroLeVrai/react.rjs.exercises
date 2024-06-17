@@ -22,7 +22,6 @@ function taskToComponent(task, index, taskArray) {
 
   return <Task 
     key={id}
-    id={id}
     totalTime={totalTime}
     timeToComplete={timeToComplete}
     status={status}
