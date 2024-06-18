@@ -10,7 +10,7 @@ describe(ProgressStatus, () => {
     [180, 200, 90],
     [77, 77, 100]
   ])("should render ProgressStatus with right value $expectedValue", (progressValue, progressMax, expectedValue) => {
-    render(<ProgressStatus progressValue={progressValue} progressMax={progressMax} status={TaskStatus.IN_PROGRESS} taskName="tache1" />);
+    render(<ProgressStatus progressValue={progressValue} progressMax={progressMax} title="En Cours" status={TaskStatus.IN_PROGRESS} name="tache1" />);
     const progressBar = screen.getByRole("progressbar");
     expect(progressBar).toHaveAttribute('value', String(expectedValue));
     expect(progressBar).toHaveAttribute('max', "100");

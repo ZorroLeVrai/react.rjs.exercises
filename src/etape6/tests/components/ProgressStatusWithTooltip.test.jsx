@@ -9,8 +9,9 @@ describe('ProgressStatusWithTooltip', () => {
     render(<ProgressStatusWithTooltip
       progressValue={50}
       progressMax={100}
+      title="En cours"
       status={TaskStatus.IN_PROGRESS}
-      taskName="First Task"
+      name="First Task"
       totalTime="2d"
       timeToComplete="1d"/>);
     expect(screen.queryByTestId("progressbar_tooltip")).not.toBeInTheDocument();
@@ -22,8 +23,9 @@ describe('ProgressStatusWithTooltip', () => {
     render(<ProgressStatusWithTooltip
       progressValue={50}
       progressMax={100}
+      title="En cours"
       status={TaskStatus.IN_PROGRESS}
-      taskName="First Task"
+      name="First Task"
       totalTime="2d"
       timeToComplete="1d"/>);
     expect(screen.queryByTestId("progressbar_tooltip")).not.toBeInTheDocument();
