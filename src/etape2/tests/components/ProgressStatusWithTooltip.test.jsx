@@ -27,6 +27,8 @@ describe('ProgressStatusWithTooltip', () => {
       totalTime="2d"
       timeToComplete="1d"/>);
     expect(screen.queryByTestId("progressbar_tooltip")).not.toBeInTheDocument();
+    await userEvent.hover(screen.getByRole("progressbar"));
+    expect(screen.queryByTestId("progressbar_tooltip")).toBeInTheDocument();
     await userEvent.unhover(screen.getByRole("progressbar"));
     expect(screen.queryByTestId("progressbar_tooltip")).not.toBeInTheDocument();
   });
