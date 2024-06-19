@@ -9,11 +9,12 @@ describe(Task, () => {
     ["1d", "0m", 100],
     ["1h", "60m", 0],
     ["2h", "3600s", 50]
-  ])('should display the right progessbar value', (totalTime, timeToComplete, expectedProgressValue) => {
-    render(<Task totalTime={totalTime} timeToComplete={timeToComplete} status={TaskStatus.IN_PROGRESS} taskName="My Task" isFirst={false} isLast={false} />);
-    const progressBar = screen.getByRole("progressbar");
-    expect(progressBar).toHaveAttribute('value', String(expectedProgressValue));
-    expect(progressBar).toHaveAttribute('max', "100");
+  ])('should display the right progessbar value',
+      (totalTime, timeToComplete, expectedProgressValue) => {
+      render(<Task totalTime={totalTime} timeToComplete={timeToComplete} status={TaskStatus.IN_PROGRESS} taskName="My Task" isFirst={false} isLast={false} />);
+      const progressBar = screen.getByRole("progressbar");
+      expect(progressBar).toHaveAttribute('value', String(expectedProgressValue));
+      expect(progressBar).toHaveAttribute('max', "100");
   });
 
   it("should not display the move to top icon", () => {

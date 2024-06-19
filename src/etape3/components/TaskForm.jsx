@@ -1,12 +1,11 @@
 import { useForm } from "react-hook-form";
-import styles from "./TaskForm.module.css";
-import { composeStyles, idGenerator, statusMap } from '../tools';
-import { TaskStatus } from '../../taskStatus';
-import PropTypes from 'prop-types';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useEffect } from "react";
+import { composeStyles, idGenerator, statusMap } from '../tools';
+import { TaskStatus } from '../../taskStatus';
 import { getTimeValue } from "../../timeConverter";
+import PropTypes from 'prop-types';
+import styles from "./TaskForm.module.css";
 
 const datePattern = /^(\d+[dhms]\s*)+$/;
 
@@ -62,6 +61,12 @@ const TaskForm = ({formTitle, taskData, handleFormSubmit}) => {
     };
 
     handleFormSubmit(myTask);
+    reset();
+  };
+
+  const resetFormData = (event) => {
+    event.preventDefault();
+    reset();
   };
 
   const handleStatusSelect = (event) => {
@@ -84,18 +89,7 @@ const TaskForm = ({formTitle, taskData, handleFormSubmit}) => {
       setValue("taskStatus", taskStatusValue);
       setValue(timeToCompleteField, newTimeToComplete, { shouldValidate: true });
     }
-  }
-
-  const resetFormData = (event) => {
-    event.preventDefault();
-    reset();
   };
-  
-  useEffect(() => {
-    if (isSubmitSuccessful) {
-      reset();
-    }
-  }, [isSubmitSuccessful, reset]);
   
   return (
     <form className="form-margin" onSubmit={handleSubmit(submitHandler)}>
@@ -104,15 +98,18 @@ const TaskForm = ({formTitle, taskData, handleFormSubmit}) => {
         {errors.taskName && <div className={warningStyle}>{errors.taskName.message}</div>}
         <label htmlFor="task-name">Nom de la tâche</label>
         <input {...register("taskName")} id="task-name" type="text" placeholder="Nom de la tâche"/>
+
         {errors.totalTime && <div className={warningStyle}>{errors.totalTime.message}</div>}
         <label htmlFor="task-total-time">Temps total estimé</label>
         <input {...register(totalTimeField)} id="task-total-time" type="text" placeholder={timePlaceHolder}/>
+
         {errors.taskStatus && <div className={warningStyle}>{errors.taskStatus.message}</div>}
         <label htmlFor="task-status">Statut de la tâche</label>
         <select {...register("taskStatus", {onChange: handleStatusSelect})} id="task-status">
           <option value="">Sélectionnez un statut...</option>
           {Array.from(statusMap).map((statusItem, index) => <option key={index} value={statusItem[0]}>{statusItem[1]}</option>)}
         </select>
+
         {errors.timeToComplete && <div className={warningStyle}>{errors.timeToComplete.message}</div>}
         <label htmlFor="task-remaining-time">Temps restant estimé</label>
         <input {...register(timeToCompleteField)} id="task-remaining-time" type="text" placeholder={timePlaceHolder}/>
