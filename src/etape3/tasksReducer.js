@@ -8,42 +8,50 @@ export const TaskGroupAction = Object.freeze({
 
 /**
  * 
- * @param {TaskType[]} state - Action state
+ * @param {TaskType[]} tasks - Action state
  * @param {{type: string, payload: TaskType}} action - the dispatched action
  * @returns {*} the computed state
  */
-export function tasksReducer(state, action) {
+export function tasksReducer(tasks, action) {
+  const copyTasks = [...tasks];
+
   switch (action.type) {
     case TaskGroupAction.ADD_TASK:
-      return [...state, action.payload];
+      return [...tasks, action.payload];
+
     case TaskGroupAction.DELETE_TASK:
-      return state.filter(task => task.id !== action.payload.id);
+      return tasks.filter(task => task.id !== action.payload.id);
+
     case TaskGroupAction.EDIT_TASK: {
-      const taskIndex = state.findIndex(t => t.id === action.payload.id);
+      const modifiedTask = action.payload;
+      const taskIndex = copyTasks.findIndex(t => t.id === modifiedTask.id);
       if (taskIndex < 0)
         throw new Error("Task id was not found");
 
-      return [...state.slice(0, taskIndex), action.payload, ...state.slice(taskIndex + 1)];
+      copyTasks[taskIndex] = modifiedTask;
+      return copyTasks;
     }
+
     case TaskGroupAction.MOVE_UP_TASK: {
-      const taskIndex = state.findIndex(t => t.id === action.payload.id);
+      const taskIndex = tasks.findIndex(t => t.id === action.payload.id);
       if (taskIndex < 0)
         throw new Error("Task id was not found");
 
       if (taskIndex === 0)
         throw new Error("Bad task id");
 
-      return handleSwapTasks(state, taskIndex, taskIndex - 1);
+      return handleSwapTasks(tasks, taskIndex, taskIndex - 1);
     }
+
     case TaskGroupAction.MOVE_DOWN_TASK: {
-      const taskIndex = state.findIndex(t => t.id === action.payload.id);
+      const taskIndex = tasks.findIndex(t => t.id === action.payload.id);
       if (taskIndex < 0)
         throw new Error("Task id was not found");
 
-      if (taskIndex + 1 >= state.length)
+      if (taskIndex + 1 >= tasks.length)
         throw new Error("Bad task id");
 
-      return handleSwapTasks(state, taskIndex, taskIndex + 1);
+      return handleSwapTasks(tasks, taskIndex, taskIndex + 1);
     }
   }
 

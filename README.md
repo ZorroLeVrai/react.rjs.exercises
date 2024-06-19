@@ -36,6 +36,10 @@ Vous pouvez ajouter des tests pour les composants suivants
 
 ## Etape 4
 - Installez et utilisez Redux pour gérer l'état de de votre application.
+  - Création du fichier tasksSlice.js pour la gestion des tâches.
+  - Création du fichier store.js pour la configuration du store.
+  - Passage du store via le composant Provider.
+  - Utilisation du store dans l'application.
 - Mettez en place Redux Persist pour sauvegarder tous les changements et pour ne pas perdre les données en cas de rechargement de l'application.
 
 ## Etape 5
