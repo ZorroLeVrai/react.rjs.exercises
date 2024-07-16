@@ -43,7 +43,7 @@ Vous pouvez ajouter des tests pour les composants suivants
 - Mettez en place Redux Persist pour sauvegarder tous les changements et pour ne pas perdre les données en cas de rechargement de l'application.
 
 ## Etape 5
-- Optimisez les performances de l'application.
+- Optimisez les performances de l'application (optimisez le composant Task).
 
 ## Etape 6
 - Créez une animation lors de l'affichage de la liste des tâches.

@@ -14,9 +14,11 @@ export const TaskGroup = ({groupName, tasks, tasksDispatcher}) => {
   const [showTasks, setShowTasks] = useState(true);
   const [showForm, setShowForm] = useState(false);
 
-  const { total: totalTimeInSeconds, remaining: remainingTimeInSeconds } = tasks
+  const timeMetricsSum = tasks
     .map(task => new TimeMetrics(getTimeValue(task.totalTime), getTimeValue(task.timeToComplete)))
     .reduce((accumulator, current) => accumulator.add(current), new TimeMetrics(0, 0));
+
+  const { total: totalTimeInSeconds, remaining: remainingTimeInSeconds } = timeMetricsSum;
 
   const totalTime = getTimeInFormat(totalTimeInSeconds);
   const totalTimeToComplete = getTimeInFormat(remainingTimeInSeconds);

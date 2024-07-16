@@ -141,8 +141,4 @@ TaskForm.propTypes = {
   })
 };
 
-TaskForm.defaultProp = {
-  taskData: null
-};
-
 export default TaskForm;

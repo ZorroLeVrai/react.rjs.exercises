@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 import styles from "./TaskGroup.module.css";
 import TimeMetrics from '../TimeMetrics';
 
-const LocalTaskGroup = ({groupName}) => {
+export const TaskGroup = ({groupName}) => {
   const tasks = useSelector(state => state.taskGroup.tasks);
   const dispatch = useDispatch();
 
@@ -88,9 +88,6 @@ const LocalTaskGroup = ({groupName}) => {
   }
 };
 
-LocalTaskGroup.propTypes = {
+TaskGroup.propTypes = {
   groupName: PropTypes.string.isRequired
 }
-
-export const TaskGroup = React.memo(LocalTaskGroup);
-
