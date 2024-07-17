@@ -4,8 +4,7 @@ import { store, persistor } from "./store";
 import { Provider } from "react-redux";
 import LoadingView from "../commonComponents/LoadingView";
 import "./i18n";
-import { I18nextProvider } from 'react-i18next';
-import { useTranslation } from "react-i18next";
+import { I18nextProvider, useTranslation } from 'react-i18next';
 
 const languages = {
   en: { nativeName: "English" },
